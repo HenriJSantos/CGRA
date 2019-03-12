@@ -25,11 +25,13 @@ class MyScene extends CGFscene {
         this.plane = new MyPlane(this, 5);
         this.cone = new MyCone(this, 3, 1);
         this.pyramid = new MyPyramid(this, 3, 1);
+        this.cube = new MyUnitCube(this);
+        this.tangram = new MyTangram(this);
         
-        this.objects = [this.plane, this.pyramid, this.cone];
+        this.objects = [this.plane, this.pyramid, this.cone, this.cube, this.tangram];
 
         // Labels and ID's for object selection on MyInterface
-        this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2};
+        this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Cube': 3 , 'Tangram': 4};
 
         //Other variables connected to MyInterface
         this.selectedObject = 0;
@@ -38,6 +40,7 @@ class MyScene extends CGFscene {
         this.displayNormals = false;
         this.objectComplexity = 0.5;
         this.scaleFactor = 2.0;
+        this.globalAmbientLighting = 0.5;
 
     }
     initLights() {
@@ -163,6 +166,8 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+
+        this.setGlobalAmbientLight(this.globalAmbientLighting, this.globalAmbientLighting, this.globalAmbientLighting, 1.0);
         
         if (this.displayNormals)
             this.objects[this.selectedObject].enableNormalViz();

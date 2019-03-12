@@ -11,14 +11,36 @@ class MyUnitCube extends CGFobject {
 	initBuffers() {
 		this.vertices = [
 			-0.5, -0.5, -0.5,	 //0, Bottom Left Back
+			-0.5, -0.5, -0.5,
+			-0.5, -0.5, -0.5,
 			-0.5, 0.5, -0.5,	 //1, Top Left Back
+			-0.5, 0.5, -0.5,
+			-0.5, 0.5, -0.5,
 			0.5, -0.5, -0.5,     //2, Bottom Right Back
+			0.5, -0.5, -0.5,
+			0.5, -0.5, -0.5,
 			0.5, 0.5, -0.5,      //3, Top Right Back
+			0.5, 0.5, -0.5,
+			0.5, 0.5, -0.5,
 			-0.5, -0.5, 0.5,     //4, Bottom Left Front
+			-0.5, -0.5, 0.5,
+			-0.5, -0.5, 0.5,
 			-0.5, 0.5, 0.5,	     //5, Top Left Front
+			-0.5, 0.5, 0.5,
+			-0.5, 0.5, 0.5,
 			0.5, -0.5, 0.5,      //6, Bottom Right Front
+			0.5, -0.5, 0.5,
+			0.5, -0.5, 0.5,
 			0.5, 0.5, 0.5,       //7, Top Right Front
+			0.5, 0.5, 0.5,
+			0.5, 0.5, 0.5,
 		];
+
+		this.normals = [
+			0, 0, 1,
+			0, 1, 0,
+			1, 0, 0,
+		]
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
