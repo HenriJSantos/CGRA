@@ -23,7 +23,9 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
+        this.blank = null;
         this.quad = new MyQuad(this);
+        this.tangram = new MyTangram(this);
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -55,6 +57,10 @@ class MyScene extends CGFscene {
         this.textureIds = { 'Board': 0, 'Floor': 1, 'Window': 2 };
         this.wrappingS = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
         this.wrappingT = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
+
+        this.objIds = { 'Blank': 0, 'Plank': 1, 'Tangram': 2 };
+        this.selectedObj = 0;
+        this.objs = [this.blank, this.quad, this.tangram];
 
       }
 
@@ -121,7 +127,9 @@ class MyScene extends CGFscene {
         
         // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
-        this.quad.display();
+        if(this.objs[this.selectedObj] !== this.blank) {
+            this.objs[this.selectedObj].display();
+        }
 
         // ---- END Primitive drawing section
     }
