@@ -12,6 +12,17 @@ class MyTangram extends CGFobject {
         this.bigTriangle = new MyTriangleBig(this.scene);
         this.parallelogram = new MyParallelogram(this.scene);
 
+		// Diamond material
+        this.diamondMat = new CGFappearance(this.scene);
+        this.diamondMat.setAmbient(0.1, 0.1, 0.1, 1.0);
+        this.diamondMat.setDiffuse(0.4, 0.4, 0.4, 1.0);
+        this.diamondMat.setSpecular(0.7, 0.7, 0.7, 1.0);
+        this.diamondMat.setShininess(10.0);
+        //Tangram texture
+        this.tangramTexture = new CGFtexture(this.scene, 'images/tangram.png');
+        this.diamondMat.setTexture(this.tangramTexture);
+        this.diamondMat.setTextureWrap('REPEAT', 'REPEAT');
+		
         // Orange shiny material
         this.orangeMat = new CGFappearance(this.scene);
         this.orangeMat.setAmbient(0.33, 0.1, 0.0, 1.0);
@@ -53,13 +64,6 @@ class MyTangram extends CGFobject {
         this.pinkMat.setDiffuse(0.5, 0.2, 0.2, 1.0);
         this.pinkMat.setSpecular(1.0, 0.4, 0.4, 1.0);
         this.pinkMat.setShininess(10.0);
-
-        this.tangramMat = new CGFappearance(this.scene);
-        this.tangramMat.setAmbient(0.25, 0.1, 0.1, 1.0);
-        this.tangramMat.setDiffuse(0.5, 0.2, 0.2, 1.0);
-        this.tangramMat.setSpecular(1.0, 0.4, 0.4, 1.0);
-        this.tangramMat.loadTexture('images/tangram.png');
-        this.tangramMat.setTextureWrap('REPEAT', 'REPEAT');
 	}
 	updateBuffers() {
 		
@@ -79,8 +83,7 @@ class MyTangram extends CGFobject {
         this.scene.multMatrix(mT);
         this.scene.multMatrix(mRz);
 
-        this.tangramMat.apply();
-
+        this.diamondMat.apply();
         this.diamond.display();
         this.scene.popMatrix();
 
@@ -89,7 +92,7 @@ class MyTangram extends CGFobject {
         this.scene.translate(-Math.sqrt(2),-Math.sqrt(2),0);
         this.scene.rotate(Math.PI*5/4,0,0,1);
 
-	this.purpleMat.apply();
+		this.purpleMat.apply();
         this.bigTriangle.display();
         this.scene.popMatrix();
 
@@ -117,7 +120,7 @@ class MyTangram extends CGFobject {
         this.scene.translate(3*Math.sqrt(2)/2,-Math.sqrt(8)+Math.sqrt(2)/2,0);
         this.scene.rotate(Math.PI*3/4,0,0,1);
 
-	this.lightBlueMat.apply();
+		this.lightBlueMat.apply();
         this.smallTriangle.display();
         this.scene.popMatrix();
 
