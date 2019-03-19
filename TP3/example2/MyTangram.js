@@ -58,7 +58,8 @@ class MyTangram extends CGFobject {
 		
 	}
 	display() {
-		//Diamond
+	
+	//Diamond
         this.scene.pushMatrix();
         let mRz = [Math.cos(Math.PI/4), Math.sin(Math.PI/4), 0, 0,
                    -Math.sin(Math.PI/4), Math.cos(Math.PI/4), 0, 0,
@@ -81,7 +82,7 @@ class MyTangram extends CGFobject {
         this.scene.translate(-Math.sqrt(2),-Math.sqrt(2),0);
         this.scene.rotate(Math.PI*5/4,0,0,1);
 
-		this.purpleMat.apply();
+	this.purpleMat.apply();
         this.bigTriangle.display();
         this.scene.popMatrix();
 
@@ -109,7 +110,7 @@ class MyTangram extends CGFobject {
         this.scene.translate(3*Math.sqrt(2)/2,-Math.sqrt(8)+Math.sqrt(2)/2,0);
         this.scene.rotate(Math.PI*3/4,0,0,1);
 
-		this.lightBlueMat.apply();
+	this.lightBlueMat.apply();
         this.smallTriangle.display();
         this.scene.popMatrix();
 
