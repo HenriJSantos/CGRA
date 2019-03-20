@@ -120,6 +120,7 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         if(this.objs[this.selectedObj] !== this.blank) {
+            this.quadMaterial.apply();
             this.objs[this.selectedObj].display();
         }
 
