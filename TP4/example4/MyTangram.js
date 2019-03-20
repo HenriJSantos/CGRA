@@ -52,49 +52,6 @@ class MyTangram extends CGFobject {
         this.tangramMat.setDiffuse(.4, .4, .4, 1.0);
         this.tangramMat.setSpecular(0.7, 0.7, 0.7, 1.0);
         this.tangramMat.setShininess(10.0);
-
-        // Orange shiny material
-        this.orangeMat = new CGFappearance(this.scene);
-        this.orangeMat.setAmbient(0.33, 0.1, 0.0, 1.0);
-        this.orangeMat.setDiffuse(0.67, 0.2, 0.0, 1.0);
-        this.orangeMat.setSpecular(1, 0.4, 0.0, 1.0);
-        this.orangeMat.setShininess(10.0);
-
-        // Purple shiny material
-        this.purpleMat = new CGFappearance(this.scene);
-        this.purpleMat.setAmbient(0.2, 0.0, 0.2, 1.0);
-        this.purpleMat.setDiffuse(0.4, 0.0, 0.4, 1.0);
-        this.purpleMat.setSpecular(0.8, 0.0, 0.8, 1.0);
-        this.purpleMat.setShininess(10.0);
-
-        // Yellow shiny material
-        this.yellowMat = new CGFappearance(this.scene);
-        this.yellowMat.setAmbient(0.2, 0.2, 0.0, 1.0);
-        this.yellowMat.setDiffuse(0.4, 0.4, 0.0, 1.0);
-        this.yellowMat.setSpecular(0.8, 0.8, 0.0, 1.0);
-        this.yellowMat.setShininess(10.0);
-
-        // Red shiny material
-        this.redMat = new CGFappearance(this.scene);
-        this.redMat.setAmbient(0.2, 0.0, 0.0, 1.0);
-        this.redMat.setDiffuse(0.4, 0.0, 0.0, 1.0);
-        this.redMat.setSpecular(0.8, 0.0, 0.0, 1.0);
-        this.redMat.setShininess(10.0);
-
-        // Light Blue shiny material
-        this.lightBlueMat = new CGFappearance(this.scene);
-        this.lightBlueMat.setAmbient(0.075, 0.15, 0.2, 1.0);
-        this.lightBlueMat.setDiffuse(0.15, 0.3, 0.4, 1.0);
-        this.lightBlueMat.setSpecular(0.3, 0.6, 0.8, 1.0);
-        this.lightBlueMat.setShininess(10.0);
-
-        // Pink shiny material
-        this.pinkMat = new CGFappearance(this.scene);
-        this.pinkMat.setAmbient(0.25, 0.1, 0.1, 1.0);
-        this.pinkMat.setDiffuse(0.5, 0.2, 0.2, 1.0);
-        this.pinkMat.setSpecular(1.0, 0.4, 0.4, 1.0);
-        this.pinkMat.setShininess(10.0);
-
         //Tangram texture
         this.tangramTexture = new CGFtexture(this.scene, 'images/tangram.png');
         this.tangramMat.setTexture(this.tangramTexture);
