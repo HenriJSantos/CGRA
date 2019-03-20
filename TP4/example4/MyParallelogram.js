@@ -24,10 +24,10 @@ class MyParallelogram extends CGFobject {
 		];
 
         this.texCoords = [
-            0.25, 0.75,     //top left
-            0.75, 0.75, //top right
-            0.5, 1, //bottom left
-            1, 1    //bottom right
+	    0.25, 0.75,     //top left
+	    0.75, 0.75, //top right
+	    1, 1,    //bottom right
+            0.5, 1 //bottom left
         ];
 
 		//Counter-clockwise reference of vertices
