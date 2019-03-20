@@ -21,6 +21,13 @@ class MyTriangle extends CGFobject {
 			0, 0, 1,
 		];
 
+        this.texCoords = [
+            0, 0.5,     //top left
+            0, 0.5, //top right
+            0, 1, //bottom left
+            0.5, 1    //bottom right
+        ];
+
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2
@@ -31,11 +38,11 @@ class MyTriangle extends CGFobject {
 }
 
 class MyTriangleSmall extends CGFobject {
-	constructor(scene) {
+	constructor(scene,texCoords) {
 		super(scene);
-		this.initBuffers();
+		this.initBuffers(texCoords);
 	}
-	initBuffers() {
+	initBuffers(texCoords) {
 		this.vertices = [
 			1, 0, 0,	//0
 			0, 1, 0,	//1
@@ -48,6 +55,7 @@ class MyTriangleSmall extends CGFobject {
 			0, 0, 1,
 		];
 
+        this.texCoords = texCoords;
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2
@@ -58,11 +66,11 @@ class MyTriangleSmall extends CGFobject {
 }
 
 class MyTriangleBig extends CGFobject {
-	constructor(scene) {
+	constructor(scene, texCoords) {
 		super(scene);
-		this.initBuffers();
+		this.initBuffers(texCoords);
 	}
-	initBuffers() {
+	initBuffers(texCoords) {
 		this.vertices = [
 			2, 0, 0,	//0
 			0, 2, 0,	//1
@@ -75,6 +83,7 @@ class MyTriangleBig extends CGFobject {
 			0, 0, 1,
 		];
 
+        this.texCoords = texCoords;
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2
