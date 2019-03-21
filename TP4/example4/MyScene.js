@@ -26,6 +26,7 @@ class MyScene extends CGFscene {
         this.blank = null;
         this.quad = new MyQuad(this);
         this.tangram = new MyTangram(this);
+        this.quadCube = new MyUnitCubeQuad(this);
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -59,15 +60,16 @@ class MyScene extends CGFscene {
         this.wrappingS = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
         this.wrappingT = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
 
-        this.objIds = { 'Blank': 0, 'Plank': 1, 'Tangram': 2 };
+        this.objIds = { 'Blank': 0, 'Plank': 1, 'Tangram': 2, 'QuadCube' : 3 };
         this.selectedObj = 0;
-        this.objs = [this.blank, this.quad, this.tangram];
-
+        this.objs = [this.blank, this.quad, this.tangram, this.quadCube];
       }
 
     initLights() {
         this.lights[0].setPosition(5, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        //this.lights[0].setAmbient(1.0, 1.0, 1.0, 1.0);
+        //this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
     }
