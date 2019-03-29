@@ -15,6 +15,7 @@ class MyInterface extends CGFinterface {
         this.gui = new dat.GUI();
         
         var obj = this;
+        this.gui.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
 
         return true;
     }
