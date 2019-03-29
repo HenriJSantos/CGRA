@@ -26,7 +26,7 @@ treeTopTexture) {
 	}
 
 	display() {
-	    this.baseMaterial.setTexture(this.treeTopTexture);
+	    this.baseMaterial.setTexture(this.trunkTexture);
 	    this.baseMaterial.apply();
 	   
         this.scene.pushMatrix();
@@ -34,6 +34,9 @@ treeTopTexture) {
         this.baseMaterial.apply();
         this.trunk.display();
         this.scene.popMatrix();
+
+        this.baseMaterial.setTexture(this.treeTopTexture);
+	    this.baseMaterial.apply();
 
         this.scene.pushMatrix();
         this.scene.translate(0,this.trunkHeight,0);
@@ -43,13 +46,13 @@ treeTopTexture) {
 
         this.scene.pushMatrix();
         this.scene.translate(0,this.trunkHeight + 1/2*this.treeTopHeight,0);
-        this.scene.scale(this.treeTopRadius, this.treeTopHeight, this.treeTopRadius);
+        this.scene.scale(5/6*this.treeTopRadius, this.treeTopHeight, 5/6*this.treeTopRadius);
         this.treeTop.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0,this.trunkHeight + this.treeTopHeight,0);
-        this.scene.scale(this.treeTopRadius, this.treeTopHeight, this.treeTopRadius);
+        this.scene.scale(2/3*this.treeTopRadius, this.treeTopHeight, 2/3*this.treeTopRadius);
         this.treeTop.display();
         this.scene.popMatrix();
 	}

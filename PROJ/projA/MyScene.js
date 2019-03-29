@@ -10,6 +10,7 @@ class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
+        this.enableTextures(true);
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -22,7 +23,8 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         let treeTopTexture = new CGFtexture(this, 'textures/treeTopTexture.jpg');
-        this.tree = new MyTree(this,2,1,3,3,treeTopTexture,treeTopTexture);
+        let trunkTexture = new CGFtexture(this, 'textures/trunkTexture.jpg');
+        this.tree = new MyTree(this,2,1,3,3,trunkTexture,treeTopTexture);
 
         //Objects connected to MyInterface
     }
