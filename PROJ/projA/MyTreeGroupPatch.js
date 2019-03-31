@@ -16,7 +16,7 @@ treeTopTexture) {
 	    }
 	    for(let i = 0; i < this.patchRadius; i++) {
 	        for (let j = 0; j < this.patchRadius; j++) {
-	            this.displacements[i].push((Math.random() - 0.5)*1.5);
+	            this.displacements[i].push((Math.random() - 0.5)*2);
 	        }
 	    }
 	}

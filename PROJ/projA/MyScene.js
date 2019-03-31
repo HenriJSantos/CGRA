@@ -22,9 +22,12 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
+        this.cubeMap = new MyCubeMap(this, "DayLake");
+        let grassTexture = new CGFtexture(this, 'textures/grassTexture.jpg');
+        this.floor = new MyFloor(this, 60, grassTexture);
         let treeTopTexture = new CGFtexture(this, 'textures/treeTopTexture.jpg');
         let trunkTexture = new CGFtexture(this, 'textures/trunkTexture.jpg');
-        this.treePatch = new MyTreeRowPatch(this,6,2,1,3,3,trunkTexture,treeTopTexture);
+        this.treePatch = new MyTreeGroupPatch(this,6,2,0.5,3,3,trunkTexture,treeTopTexture);
         this.house = new MyHouse(this);
 
         //Objects connected to MyInterface
@@ -64,7 +67,12 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+        this.floor.display();
+        this.cubeMap.display();
+        this.pushMatrix();
+        this.translate(-15,0,-15);
         this.treePatch.display();
+        this.popMatrix();
 
         this.pushMatrix();
         this.translate(0,2,15);
