@@ -25,6 +25,7 @@ class MyScene extends CGFscene {
         let treeTopTexture = new CGFtexture(this, 'textures/treeTopTexture.jpg');
         let trunkTexture = new CGFtexture(this, 'textures/trunkTexture.jpg');
         this.treePatch = new MyTreeRowPatch(this,6,2,1,3,3,trunkTexture,treeTopTexture);
+        this.house = new MyHouse(this);
 
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
@@ -64,6 +65,11 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         this.treePatch.display();
+
+        this.pushMatrix();
+        this.translate(0,2,15);
+        this.house.display();
+        this.popMatrix();
 
         // ---- END Primitive drawing section
     }
