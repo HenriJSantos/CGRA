@@ -13,11 +13,6 @@ class MyCubeMap extends CGFobject {
         this.backTexture = new CGFtexture(this.scene, 'textures/' + texturesFolder + '/' + texturesFolder + 'Back.jpg');
         this.bottomTexture = new CGFtexture(this.scene, 'textures/' + texturesFolder + '/' + texturesFolder + 'Bottom.jpg');
 
-        /*let normals = [1,-1,1,
-                       -1,-1,1,
-                       1,1,1,
-                       -1,1,1];
-        this.quad = new MyQuad(scene, undefined, normals);*/
         this.quad = new MyQuad(scene);
 
         this.baseMaterial = new CGFappearance(this.scene);

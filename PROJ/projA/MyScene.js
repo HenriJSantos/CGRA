@@ -61,14 +61,14 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        this.axis.display();
+        // this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-        //this.floor.display();
+        this.floor.display();
         this.cubeMap.display();
         this.pushMatrix();
         this.translate(-15,0,-15);
