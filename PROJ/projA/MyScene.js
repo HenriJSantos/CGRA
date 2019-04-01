@@ -67,15 +67,15 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-        this.floor.display();
+        /*this.floor.display();
         this.cubeMap.display();
         this.pushMatrix();
         this.translate(-15,0,-15);
         this.treePatch.display();
-        this.popMatrix();
+        this.popMatrix();*/
 
         this.pushMatrix();
-        this.translate(0,2,15);
+        //this.translate(0,2,15);
         this.house.display();
         this.popMatrix();
 
