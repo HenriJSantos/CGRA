@@ -25,7 +25,7 @@ class MyCubeMap extends CGFobject {
         this.baseMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
         this.baseMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
         this.baseMaterial.setShininess(10.0);
-        this.baseMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        this.baseMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
     }  
 
 	display() {
