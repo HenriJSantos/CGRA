@@ -27,6 +27,7 @@ class MyScene extends CGFscene {
         this.floor = new MyFloor(this, 60, grassTexture);
         let treeTopTexture = new CGFtexture(this, 'textures/treeTopTexture.jpg');
         let trunkTexture = new CGFtexture(this, 'textures/trunkTexture.jpg');
+        this.tree = new MyTree(this, 2, 0.5, 3, 3, trunkTexture, treeTopTexture);
         this.treePatch = new MyTreeGroupPatch(this,6,2,0.5,3,3,trunkTexture,treeTopTexture);
         this.house = new MyHouse(this);
 
@@ -67,16 +68,17 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-        /*this.floor.display();
+        //this.floor.display();
         this.cubeMap.display();
         this.pushMatrix();
         this.translate(-15,0,-15);
-        this.treePatch.display();
-        this.popMatrix();*/
+        //this.treePatch.display();
+        this.popMatrix();
 
         this.pushMatrix();
         //this.translate(0,2,15);
-        this.house.display();
+        //this.house.display();
+        this.tree.display();
         this.popMatrix();
 
         // ---- END Primitive drawing section

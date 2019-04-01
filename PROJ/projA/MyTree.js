@@ -35,7 +35,6 @@ treeTopTexture) {
         this.trunk.display();
         this.scene.popMatrix();
 
-        this.scene.pushMatrix();
         this.baseMaterial.setTexture(this.treeTopTexture);
 	    this.baseMaterial.apply();
 
@@ -55,8 +54,6 @@ treeTopTexture) {
         this.scene.translate(0,this.trunkHeight + this.treeTopHeight,0);
         this.scene.scale(2/3*this.treeTopRadius, 2/3*this.treeTopHeight, 2/3*this.treeTopRadius);
         this.treeTop.display();
-        this.scene.popMatrix();
-
         this.scene.popMatrix();
 	}
 }
