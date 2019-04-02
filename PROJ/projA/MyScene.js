@@ -31,6 +31,8 @@ class MyScene extends CGFscene {
         this.treePatch = new MyTreeRowPatch(this,6,2,0.5,3,3,trunkTexture,treeTopTexture);
         this.house = new MyHouse(this);
         this.hill = new MyVoxelHill(this, 3, grassTexture);
+        this.sphere = new MySphere(this, 7, 7);
+        this.campfire = new MyCampfire(this);
 
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
@@ -71,11 +73,7 @@ class MyScene extends CGFscene {
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         this.floor.display();
         this.cubeMap.display();
-        this.hill.display();
-        this.pushMatrix();
-        this.translate(-15,0,-15);
-        this.treePatch.display();
-        this.popMatrix();
+        this.campfire.display();
 
         this.pushMatrix();
         //this.translate(0,2,15);
