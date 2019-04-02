@@ -30,6 +30,7 @@ class MyScene extends CGFscene {
         this.tree = new MyTree(this, 2, 0.5, 3, 3, trunkTexture, treeTopTexture);
         this.treePatch = new MyTreeRowPatch(this,6,2,0.5,3,3,trunkTexture,treeTopTexture);
         this.house = new MyHouse(this);
+        this.hill = new MyVoxelHill(this, 3, grassTexture);
 
         this.door = new MyDoor(this);
 
@@ -63,7 +64,7 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        // this.axis.display();
+        //this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
@@ -73,6 +74,7 @@ class MyScene extends CGFscene {
 
         //this.floor.display();
         this.cubeMap.display();
+        this.hill.display();
         this.pushMatrix();
         this.translate(-15,0,-15);
         this.treePatch.display();
