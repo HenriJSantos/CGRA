@@ -21,10 +21,11 @@ class MyFloor extends CGFobject {
 
 	display() {
 	    this.baseMaterial.apply();
-	    for(let i = 0; i < this.radius; i++) {
-	        for (let j = 0; j < this.radius; j++) {
+	    for(let i = 0; i < this.radius; i+=2) {
+	        for (let j = 0; j < this.radius; j+=2) {
 	            this.scene.pushMatrix();
                 this.scene.translate(-this.radius/2+i,0,-this.radius/2+j);
+                this.scene.scale(2,1,2);
                 this.scene.rotate(-Math.PI/2,1,0,0);
                 this.quad.display();
 	            this.scene.popMatrix();

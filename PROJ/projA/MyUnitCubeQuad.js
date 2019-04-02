@@ -4,7 +4,7 @@
  * @param scene - Reference to MyScene object
  */
 class MyUnitCubeQuad extends CGFobject {
-    constructor(scene) {
+    constructor(scene, texture) {
         super(scene);
         this.quadPol = new MyQuad(scene);
 
@@ -13,17 +13,14 @@ class MyUnitCubeQuad extends CGFobject {
         this.cubeMat.setDiffuse(1, 1, 1, 1.0);
         this.cubeMat.setSpecular(0.7, 0.7, 0.7, 1.0);
         this.cubeMat.setShininess(10.0);
-        //Tangram texture
-        this.sideTex = new CGFtexture(this.scene, 'images/mineSide.png');
-        this.topTex = new CGFtexture(this.scene, 'images/mineTop.png');
-        this.bottomTex = new CGFtexture(this.scene, 'images/mineBottom.png');
-        this.cubeMat.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.texture = texture;
+        this.cubeMat.setTexture(this.texture);
     }
     updateBuffers() {
 
     }
     display() {
-        this.cubeMat.setTexture(this.sideTex);
         this.cubeMat.apply();
         //FRONT
         this.scene.pushMatrix();
@@ -54,8 +51,6 @@ class MyUnitCubeQuad extends CGFobject {
         this.quadPol.display();
         this.scene.popMatrix();
 
-        this.cubeMat.setTexture(this.topTex);
-        this.cubeMat.apply();
         //TOP
         this.scene.pushMatrix();
         this.scene.translate(0,0.5,0);
@@ -63,8 +58,6 @@ class MyUnitCubeQuad extends CGFobject {
         this.quadPol.display();
         this.scene.popMatrix();
 
-        this.cubeMat.setTexture(this.bottomTex);
-        this.cubeMat.apply();
         //BOTTOM
         this.scene.pushMatrix();
         this.scene.translate(0,-0.5,0);
