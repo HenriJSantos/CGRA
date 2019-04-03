@@ -4,13 +4,18 @@
  * @param scene - Reference to MyScene object
  */
 class MySlab extends CGFobject {
-    constructor(scene, width, height, thickness) {
+    constructor(scene, width, height, thickness, textCoords) {
         super(scene);
         this.plane = new MyQuad(scene);
 
         this.width = width;
         this.height = height;
         this.thickness = thickness;
+
+        if(textCoords != undefined)
+        {
+            this.plane.updateTexCoords(textCoords);
+        }
     }
     updateBuffers() {
 

@@ -34,6 +34,8 @@ class MyScene extends CGFscene {
         this.sphere = new MySphere(this, 7, 7);
         this.campfire = new MyCampfire(this);
 
+        this.door = new MyDoor(this);
+
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
     }
@@ -71,14 +73,18 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-        this.floor.display();
+
+        //this.floor.display();
         this.cubeMap.display();
         this.campfire.display();
 
+
+
         this.pushMatrix();
-        //this.translate(0,2,15);
-        //this.house.display();
+        this.translate(0,2,15);
+        this.house.display();
         this.popMatrix();
+
 
         // ---- END Primitive drawing section
     }
