@@ -7,64 +7,73 @@ class MyHouse extends CGFobject {
     constructor(scene) {
         super(scene);
         this.walls_height = 4;
-        this.backWalls_width = 10;
+        this.backwall_width = 10;
         this.walls_thick = 0.5;
+        this.sideWalls_width = this.backwall_width/1.5;
 
-        this.sideWalls_width = this.backWalls_width/1.5;
+        this.doorHeight = 3/4 * this.walls_height;
 
-        this.doorHeight = 3;
-        let frontWallWidth = this.backWalls_width/2.5;
-        let doorTopWidth = (this.backWalls_width - frontWallWidth*2);
+        this.leftWindowWidth = this.sideWalls_width/2;
+        this.leftWindowHeight = this.walls_height/2;
+        this.leftWindowThick = this.walls_thick/4;
+        this.leftWindowAngle = Math.PI/3;
+        this.leftWallWidht = (this.sideWalls_width - this.leftWindowWidth)/2;
+        this.leftBordersHeight = (this.walls_height - this.leftWindowHeight)/2;
+
+        let frontWallWidth = this.backwall_width/2.5;
+        let doorTopWidth = (this.backwall_width - frontWallWidth*2);
         let doorTopHeight = this.walls_height - this.doorHeight;
-
-        let doorTopTextCoords = [
-            0, doorTopHeight/this.walls_height,
-            0.5, doorTopHeight/this.walls_height,
-            0,0,
-            0.5, 0,
-        ];
-
-        let sideWallTextCoords = [
-            0, 1,
-            this.sideWalls_width/frontWallWidth, 1,
-            0,0,
-            this.sideWalls_width/frontWallWidth, 0,
-        ];
-
-        let backWallTextCoords = [
-            0, 1,
-            this.backWalls_width/frontWallWidth, 1,
-            0,0,
-            this.backWalls_width/frontWallWidth, 0,
-        ];
 
         this.woodMaterial = new MyMaterial(scene, 'textures/HouseTextures/woodWall.jpeg');
         this.roofMaterial = new MyMaterial(scene, 'textures/HouseTextures/roofTexture.jpg');
 
-        this.backWall = new MySlab(scene, this.backWalls_width, this.walls_height, this.walls_thick, backWallTextCoords);
-        this.frontWall = new MySlab(scene, frontWallWidth, this.walls_height, this.walls_thick);
+        let doorTopTextCoords = this.getWallTextCoords(doorTopWidth, doorTopHeight);
+        let sideWallTextCoords = this.getWallTextCoords(this.sideWalls_width);
+        let backWallTextCoords = this.getWallTextCoords(this.backwall_width);
+        let leftWallsTextCoords = this.getWallTextCoords(this.leftWallWidht);
+        let leftBordersTextCoords = this.getWallTextCoords(this.leftWindowWidth, this.leftBordersHeight);
+
+        this.backWall = new MySlab(scene, this.backwall_width, this.walls_height, this.walls_thick, backWallTextCoords);
+
+        this.frontWalls = new MySlab(scene, frontWallWidth, this.walls_height, this.walls_thick);
         this.doorTopWall = new MySlab(scene, doorTopWidth, doorTopHeight, this.walls_thick, doorTopTextCoords);
-        this.sideWall = new MySlab(scene, this.sideWalls_width, this.walls_height, this.walls_thick, sideWallTextCoords);
-        this.floor = new MySlab(scene, this.backWalls_width, this.sideWalls_width + this.walls_thick*2, 0);
-        this.ceiling = new MySlab(scene, this.backWalls_width + this.walls_thick*2, this.sideWalls_width + this.walls_thick*4, 0);
+
+        this.rightSideWall = new MySlab(scene, this.sideWalls_width, this.walls_height, this.walls_thick, sideWallTextCoords);
+        this.leftSideWalls = new MySlab(scene, this.leftWallWidht, this.walls_height, this.walls_thick, leftWallsTextCoords);
+        this.leftBorders = new MySlab(scene, this.leftWindowWidth, this.leftBordersHeight, this.walls_thick, leftBordersTextCoords);
+        this.leftWindow = new MySlab(scene, this.leftWindowWidth/2, this.leftWindowHeight, this.leftWindowThick);
+
+        this.floor = new MySlab(scene, this.backwall_width, this.sideWalls_width + this.walls_thick*2, 0);
+        this.ceiling = new MySlab(scene, this.backwall_width + this.walls_thick*2, this.sideWalls_width + this.walls_thick*4, 0);
         this.roof = new MyRoof(scene);
         this.door = new MyDoor(scene, 'textures/HouseTextures/doorTexture.png', 'textures/HouseTextures/knobTexture.jpg');
     }
-    updateBuffers() {
 
+    getWallTextCoords(width, height) {
+        if(height === undefined) height = this.walls_height;
+        let referenceSize = this.backwall_width/2.5;
+        let textCoords = [
+            0, height/this.walls_height,
+            width/referenceSize, height/this.walls_height,
+            0, 0,
+            width/referenceSize, 0,
+        ];
+
+        return textCoords;
     }
+
     display() {
         this.woodMaterial.apply();
         //FRONT WALL1
         this.scene.pushMatrix();
-        this.scene.translate(-(this.backWalls_width - this.backWalls_width/2.5)/2,0,this.walls_thick/2);
-        this.frontWall.display();
+        this.scene.translate(-(this.backwall_width - this.backwall_width/2.5)/2,0,this.walls_thick/2);
+        this.frontWalls.display();
         this.scene.popMatrix();
 
         //FRONT WALL2
         this.scene.pushMatrix();
-        this.scene.translate((this.backWalls_width - this.backWalls_width/2.5)/2,0,this.walls_thick/2);
-        this.frontWall.display();
+        this.scene.translate((this.backwall_width - this.backwall_width/2.5)/2,0,this.walls_thick/2);
+        this.frontWalls.display();
         this.scene.popMatrix();
 
         //FRONT WALL3
@@ -73,18 +82,55 @@ class MyHouse extends CGFobject {
         this.doorTopWall.display();
         this.scene.popMatrix();
 
-        //SIDE WALL1
+        //RIGHT WALL
         this.scene.pushMatrix();
-        this.scene.translate(this.backWalls_width/2 - this.walls_thick/2,0,-this.sideWalls_width/2);
+        this.scene.translate(this.backwall_width/2 - this.walls_thick/2,0,-this.sideWalls_width/2);
         this.scene.rotate(Math.PI/2, 0,1,0);
-        this.sideWall.display();
+        this.rightSideWall.display();
         this.scene.popMatrix();
 
-        //SIDE WALL2
+        //LEFT WALL1
         this.scene.pushMatrix();
-        this.scene.translate(-this.backWalls_width/2 + this.walls_thick/2,0,-this.sideWalls_width/2);
+        this.scene.translate(-this.backwall_width/2 + this.walls_thick/2,0, -this.leftWallWidht/2);
         this.scene.rotate(Math.PI/2, 0,1,0);
-        this.sideWall.display();
+        this.leftSideWalls.display();
+        this.scene.popMatrix();
+
+        //LEFT WALL2
+        this.scene.pushMatrix();
+        this.scene.translate(-this.backwall_width/2 + this.walls_thick/2,0, -(this.leftWallWidht*1.5 + this.leftWindowWidth));
+        this.scene.rotate(Math.PI/2, 0,1,0);
+        this.leftSideWalls.display();
+        this.scene.popMatrix();
+
+        //LEFT BORDER1
+        this.scene.pushMatrix();
+        this.scene.translate(-this.backwall_width/2 + this.walls_thick/2, -this.leftBordersHeight*1.5, -this.leftWallWidht - this.leftWindowWidth/2);
+        this.scene.rotate(Math.PI/2, 0,1,0);
+        this.leftBorders.display();
+        this.scene.popMatrix();
+
+        //LEFT BORDER1
+        this.scene.pushMatrix();
+        this.scene.translate(-this.backwall_width/2 + this.walls_thick/2, this.leftBordersHeight*1.5, -this.leftWallWidht - this.leftWindowWidth/2);
+        this.scene.rotate(Math.PI/2, 0,1,0);
+        this.leftBorders.display();
+        this.scene.popMatrix();
+
+        //LEFT WINDOW1
+        this.scene.pushMatrix();
+        this.scene.translate(-this.backwall_width/2, 0, -this.leftWallWidht);
+        this.scene.rotate(this.leftWindowAngle, 0,1,0);
+        this.scene.translate(-this.leftWindowWidth/4,0,0);
+        this.leftWindow.display();
+        this.scene.popMatrix();
+
+        //LEFT WINDOW2
+        this.scene.pushMatrix();
+        this.scene.translate(-this.backwall_width/2, 0, -this.leftWallWidht - this.leftWindowWidth);
+        this.scene.rotate(-this.leftWindowAngle, 0,1,0);
+        this.scene.translate(-this.leftWindowWidth/4,0,0);
+        this.leftWindow.display();
         this.scene.popMatrix();
 
         //BACK WALL
@@ -95,7 +141,7 @@ class MyHouse extends CGFobject {
 
         //FLOOR
         this.scene.pushMatrix();
-        this.scene.translate(0, -this.walls_height/2,-this.sideWalls_width/2);
+        this.scene.translate(0, -this.walls_height/2 + 0.001,-this.sideWalls_width/2);
         this.scene.rotate(Math.PI/2, 1,0,0);
         this.floor.display();
         this.scene.popMatrix();
@@ -111,7 +157,7 @@ class MyHouse extends CGFobject {
         this.roofMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(0, this.walls_height/2,-this.sideWalls_width/2);
-        this.scene.scale(this.backWalls_width/2 + this.walls_thick, 3, this.sideWalls_width + this.walls_thick*4);
+        this.scene.scale(this.backwall_width/2 + this.walls_thick, 3, this.sideWalls_width + this.walls_thick*4);
         this.roof.display();
         this.scene.popMatrix();
 
@@ -121,5 +167,7 @@ class MyHouse extends CGFobject {
         this.door.display();
         this.scene.popMatrix();
     }
+
+    updateBuffers() {}
 }
 
