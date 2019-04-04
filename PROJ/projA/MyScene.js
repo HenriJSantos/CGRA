@@ -20,6 +20,8 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
+        this.setUpdatePeriod(10);
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.cubeMap = new MyCubeMap(this, "DayLake");
@@ -31,20 +33,29 @@ class MyScene extends CGFscene {
         this.treePatch = new MyTreeRowPatch(this,6,2,0.5,3,3,trunkTexture,treeTopTexture);
         this.house = new MyHouse(this);
         this.hill = new MyVoxelHill(this, 3, grassTexture);
-        this.sphere = new MySphere(this, 7, 7);
+        this.sphere = new MySphere(this, 100, 100);
         let logTexture = new CGFtexture(this, 'textures/logTexture.jpg');
-        this.campfire = new MyCampfire(this, logTexture, trunkTexture, true);
+        this.campfire = new MyCampfire(this, logTexture, trunkTexture, false);
 
         this.door = new MyDoor(this);
 
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
+        this.campfireLit = false;
     }
     initLights() {
-        this.lights[0].setPosition(10, 8, 10, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        /*this.lights[0].setPosition(10, 8, 10, 1);
+        this.lights[0].setDiffuse(0.2, 0.2, 0.2, 1.0);
         this.lights[0].enable();
-        this.lights[0].update();
+        this.lights[0].update();*/
+
+        this.lights[1].setPosition(0, 0.5, 0, 1);
+        this.lights[1].setDiffuse(2.0, 0.0, 0.0, 1.0);
+        this.lights[1].setSpecular(0.0, 0.0, 0.0, 1.0);
+        this.lights[1].setConstantAttenuation(0.2);
+        this.lights[1].setLinearAttenuation(0.05/this.scaleFactor);
+        this.lights[1].enable();
+        this.lights[1].update();
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
@@ -66,28 +77,33 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
-        // Draw axis
-        //this.axis.display();
-
         //Apply default appearance
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
+        this.updateLights();
+
         this.floor.display();
         this.cubeMap.display();
         this.campfire.display();
-        //this.circle.display();
-
-
 
         this.pushMatrix();
         this.translate(0,2,15);
         this.house.display();
         this.popMatrix();
 
-
         // ---- END Primitive drawing section
+    }
+
+    update(currTime) {
+        this.campfire.update(currTime);
+    }
+
+    updateLights() {
+        //this.lights[0].update();
+        this.lights[1].setLinearAttenuation(0.05/this.scaleFactor);
+        this.lights[1].update();
     }
 }

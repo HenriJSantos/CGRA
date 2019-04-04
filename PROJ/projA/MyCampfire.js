@@ -8,10 +8,13 @@ class MyCampfire extends CGFobject {
 		super(scene);
 		this.sphere = new MySphere(this.scene, 4, 4);
 		this.log = new MyLog(this.scene, logTexture, trunkTexture);
+		this.smokeTexture = new CGFtexture(this.scene, 'textures/smokeTexture.jpg');
+		this.fireTexture = new CGFtexture(this.scene, 'textures/fireTexture.jpg');
 		this.lit = lit;
-		this.tick = 0;
-		this.smokeRate = 10;
 		this.smoke = [];
+		this.fire = [];
+		this.smokeRate = 5;
+		this.fireRate = 1;
 	}
 
 	display() {
@@ -48,16 +51,42 @@ class MyCampfire extends CGFobject {
 	    this.log.display();
 	    this.scene.popMatrix();
 
-	    if(this.lit) {
-			if(this.tick % this.smokeRate == 0) this.smoke.push(new MySmokeParticle(this.scene));
-			this.tick++;
+		for (let i in this.smoke) {
+			this.smoke[i].display();
+		}
 
-			for (let i in this.smoke) {
-				if(this.smoke[i].iterationsAlive >= 150)
-					delete this.smoke[i];
-				else
-					this.smoke[i].display();
-			}
-	    }
+		for (let i in this.fire) {
+			this.fire[i].display();
+		}
+	}
+
+	update(currTime) {
+		if(this.scene.campfireLit) {
+			this.lit = true;
+			this.scene.lights[1].enable();
+		}
+		else {
+			this.lit = false;
+			this.scene.lights[1].disable();
+		}
+		if(this.lit) {
+			if(Math.round(currTime/100) % this.smokeRate == 0)
+				this.smoke.push(new MyParticle(this.scene, this.smokeTexture));
+
+			if(Math.round(currTime/100) % this.fireRate == 0)
+				this.fire.push(new MyParticle(this.scene, this.fireTexture));
+		}
+
+		for (let i in this.smoke) {
+			this.smoke[i].update();
+			if(this.smoke[i].iterationsAlive >= 150)
+				delete this.smoke[i];
+		}
+
+		for (let i in this.fire) {
+			this.fire[i].update();
+			if(this.fire[i].iterationsAlive >= 50)
+				delete this.fire[i];
+		}
 	}
 }
