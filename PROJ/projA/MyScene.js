@@ -20,6 +20,8 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
+        this.setUpdatePeriod(10);
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.cubeMap = new MyCubeMap(this, "DayLake");
@@ -31,7 +33,7 @@ class MyScene extends CGFscene {
         this.treePatch = new MyTreeRowPatch(this,6,2,0.5,3,3,trunkTexture,treeTopTexture);
         this.house = new MyHouse(this);
         this.hill = new MyVoxelHill(this, 3, grassTexture);
-        this.sphere = new MySphere(this, 7, 7);
+        this.sphere = new MySphere(this, 100, 100);
         let logTexture = new CGFtexture(this, 'textures/logTexture.jpg');
         this.campfire = new MyCampfire(this, logTexture, trunkTexture, true);
 
@@ -66,9 +68,6 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
-        // Draw axis
-        //this.axis.display();
-
         //Apply default appearance
         this.setDefaultAppearance();
 
@@ -78,16 +77,16 @@ class MyScene extends CGFscene {
         this.floor.display();
         this.cubeMap.display();
         this.campfire.display();
-        //this.circle.display();
-
-
 
         this.pushMatrix();
         this.translate(0,2,15);
         this.house.display();
         this.popMatrix();
 
-
         // ---- END Primitive drawing section
+    }
+
+    update(currTime) {
+        this.campfire.update();
     }
 }
