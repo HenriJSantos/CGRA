@@ -6,6 +6,7 @@
 class MySmokeParticle extends CGFobject {
 	constructor(scene) {
 	    super(scene);
+	    this.iterationsAlive = 0;
 	    this.x_movement = -0.02+0.04*Math.random();
 	    this.y_movement = 0.01+0.03*Math.random();
 	    this.z_movement = -0.02+0.04*Math.random();
@@ -18,6 +19,7 @@ class MySmokeParticle extends CGFobject {
 	}
 
 	display() {
+	    this.iterationsAlive++;
 	    this.y_movement *= 1.01;
 	    this.x_pos += this.x_movement;
 	    this.y_pos += this.y_movement;

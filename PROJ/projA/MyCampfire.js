@@ -53,7 +53,7 @@ class MyCampfire extends CGFobject {
 			this.tick++;
 
 			for (let i in this.smoke) {
-				if(this.smoke[i].y_pos > 5)
+				if(this.smoke[i].iterationsAlive >= 150)
 					delete this.smoke[i];
 				else
 					this.smoke[i].display();
