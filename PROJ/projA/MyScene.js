@@ -43,7 +43,7 @@ class MyScene extends CGFscene {
         this.scaleFactor = 1.0;
     }
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
+        this.lights[0].setPosition(10, 8, 10, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
@@ -52,7 +52,7 @@ class MyScene extends CGFscene {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
-        this.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.setAmbient(0.8, 0.8, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);

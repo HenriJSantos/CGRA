@@ -38,23 +38,8 @@ class MyHouse extends CGFobject {
             this.backWalls_width/frontWallWidth, 0,
         ];
 
-        let woodTexture = new CGFtexture(this.scene, 'textures/HouseTextures/woodWall.jpeg');
-        this.woodMaterial = new CGFappearance(scene);
-        this.woodMaterial.setAmbient(0.4, 0.4, 0.4, 1.0);
-        this.woodMaterial.setDiffuse(0.7, 0.7, 0.7, 1.0);
-        this.woodMaterial.setSpecular(0.2, 0.2, 0.2, 1.0);
-        this.woodMaterial.setShininess(10.0);
-        this.woodMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        this.woodMaterial.setTexture(woodTexture);
-
-        let roofTexture = new CGFtexture(this.scene, 'textures/HouseTextures/roofTexture.jpg');
-        this.roofMaterial = new CGFappearance(this.scene);
-        this.roofMaterial.setAmbient(0.4, 0.4, 0.4, 1.0);
-        this.roofMaterial.setDiffuse(0.7, 0.7, 0.7, 1.0);
-        this.roofMaterial.setSpecular(0.2, 0.2, 0.2, 1.0);
-        this.roofMaterial.setShininess(10.0);
-        this.roofMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        this.roofMaterial.setTexture(roofTexture);
+        this.woodMaterial = new MyMaterial(scene, 'textures/HouseTextures/woodWall.jpeg');
+        this.roofMaterial = new MyMaterial(scene, 'textures/HouseTextures/roofTexture.jpg');
 
         this.backWall = new MySlab(scene, this.backWalls_width, this.walls_height, this.walls_thick, backWallTextCoords);
         this.frontWall = new MySlab(scene, frontWallWidth, this.walls_height, this.walls_thick);
@@ -63,10 +48,7 @@ class MyHouse extends CGFobject {
         this.floor = new MySlab(scene, this.backWalls_width, this.sideWalls_width + this.walls_thick*2, 0);
         this.ceiling = new MySlab(scene, this.backWalls_width + this.walls_thick*2, this.sideWalls_width + this.walls_thick*4, 0);
         this.roof = new MyRoof(scene);
-
-        let doorTexture = new CGFtexture(this.scene, 'textures/HouseTextures/doorTexture.png');
-        let knobTexture = new CGFtexture(this.scene, 'textures/HouseTextures/knobTexture.jpg');
-        this.door = new MyDoor(scene, doorTexture, knobTexture);
+        this.door = new MyDoor(scene, 'textures/HouseTextures/doorTexture.png', 'textures/HouseTextures/knobTexture.jpg');
     }
     updateBuffers() {
 
