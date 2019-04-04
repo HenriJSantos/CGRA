@@ -32,7 +32,8 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this);
         this.hill = new MyVoxelHill(this, 3, grassTexture);
         this.sphere = new MySphere(this, 7, 7);
-        this.campfire = new MyCampfire(this);
+        let logTexture = new CGFtexture(this, 'textures/logTexture.jpg');
+        this.campfire = new MyCampfire(this, logTexture, trunkTexture, true);
 
         this.door = new MyDoor(this);
 
@@ -74,9 +75,10 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
-        //this.floor.display();
+        this.floor.display();
         this.cubeMap.display();
         this.campfire.display();
+        //this.circle.display();
 
 
 
