@@ -10,21 +10,9 @@ class MyDoor extends CGFobject {
         this.doorKnob = new MySlab(scene, 0.4, 0.1, 0.1);
         this.doorKnob1 = new MySlab(scene, 0.1, 0.05, 0.1);
 
-        this.doorMaterial = new CGFappearance(scene);
-        this.doorMaterial.setAmbient(0.4, 0.4, 0.4, 1.0);
-        this.doorMaterial.setDiffuse(0.7, 0.7, 0.7, 1.0);
-        this.doorMaterial.setSpecular(0.2, 0.2, 0.2, 1.0);
-        this.doorMaterial.setShininess(10.0);
-        this.doorMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        this.doorMaterial.setTexture(doorTexture);
+        this.doorMaterial = new MyMaterial(scene, doorTexture);
 
-        this.knobMaterial = new CGFappearance(this.scene);
-        this.knobMaterial.setAmbient(0.4, 0.4, 0.4, 1.0);
-        this.knobMaterial.setDiffuse(0.7, 0.7, 0.7, 1.0);
-        this.knobMaterial.setSpecular(0.2, 0.2, 0.2, 1.0);
-        this.knobMaterial.setShininess(10.0);
-        this.knobMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        this.knobMaterial.setTexture(knobTexture);
+        this.knobMaterial = new MyMaterial(scene, knobTexture);
     }
     updateBuffers() {
 
