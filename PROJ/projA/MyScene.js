@@ -35,12 +35,13 @@ class MyScene extends CGFscene {
         this.hill = new MyVoxelHill(this, 3, grassTexture);
         this.sphere = new MySphere(this, 100, 100);
         let logTexture = new CGFtexture(this, 'textures/logTexture.jpg');
-        this.campfire = new MyCampfire(this, logTexture, trunkTexture, true);
+        this.campfire = new MyCampfire(this, logTexture, trunkTexture, false);
 
         this.door = new MyDoor(this);
 
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
+        this.campfireLit = false;
     }
     initLights() {
         this.lights[0].setPosition(10, 8, 10, 1);
@@ -87,6 +88,6 @@ class MyScene extends CGFscene {
     }
 
     update(currTime) {
-        this.campfire.update();
+        this.campfire.update(currTime);
     }
 }

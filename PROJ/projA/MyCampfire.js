@@ -13,7 +13,6 @@ class MyCampfire extends CGFobject {
 		this.lit = lit;
 		this.smoke = [];
 		this.fire = [];
-		this.tick = 0;
 		this.smokeRate = 5;
 		this.fireRate = 1;
 	}
@@ -52,35 +51,38 @@ class MyCampfire extends CGFobject {
 	    this.log.display();
 	    this.scene.popMatrix();
 
-	    for (let i in this.smoke) {
-	    	this.smoke[i].display();
-	    }
+		for (let i in this.smoke) {
+			this.smoke[i].display();
+		}
 
-	    for (let i in this.fire) {
-	    	this.fire[i].display();
-	    }
+		for (let i in this.fire) {
+			this.fire[i].display();
+		}
 	}
 
-	update() {
+	update(currTime) {
+		if(this.scene.campfireLit)
+			this.lit = true;
+		else
+			this.lit = false;
 		if(this.lit) {
-			this.tick++;
-			if(this.tick % this.smokeRate == 0)
+			if(Math.round(currTime/100) % this.smokeRate == 0)
 				this.smoke.push(new MyParticle(this.scene, this.smokeTexture));
 
-			if(this.tick % this.fireRate == 0)
+			if(Math.round(currTime/100) % this.fireRate == 0)
 				this.fire.push(new MyParticle(this.scene, this.fireTexture));
+		}
 
-			for (let i in this.smoke) {
-				this.smoke[i].update();
-				if(this.smoke[i].iterationsAlive >= 150)
-					delete this.smoke[i];
-			}
+		for (let i in this.smoke) {
+			this.smoke[i].update();
+			if(this.smoke[i].iterationsAlive >= 150)
+				delete this.smoke[i];
+		}
 
-			for (let i in this.fire) {
-				this.fire[i].update();
-				if(this.fire[i].iterationsAlive >= 50)
-					delete this.fire[i];
-			}
-	    }
+		for (let i in this.fire) {
+			this.fire[i].update();
+			if(this.fire[i].iterationsAlive >= 50)
+				delete this.fire[i];
+		}
 	}
 }
