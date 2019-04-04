@@ -61,10 +61,14 @@ class MyCampfire extends CGFobject {
 	}
 
 	update(currTime) {
-		if(this.scene.campfireLit)
+		if(this.scene.campfireLit) {
 			this.lit = true;
-		else
+			this.scene.lights[1].enable();
+		}
+		else {
 			this.lit = false;
+			this.scene.lights[1].disable();
+		}
 		if(this.lit) {
 			if(Math.round(currTime/100) % this.smokeRate == 0)
 				this.smoke.push(new MyParticle(this.scene, this.smokeTexture));
