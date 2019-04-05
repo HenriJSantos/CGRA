@@ -21,7 +21,7 @@ class MyUnitCubeQuad extends CGFobject {
 
     }
     display() {
-        //this.cubeMat.apply();
+        this.cubeMat.apply();
         //FRONT
         this.scene.pushMatrix();
         this.scene.translate(0,0,0.5);

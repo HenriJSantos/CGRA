@@ -49,7 +49,7 @@ class MyScene extends CGFscene {
         this.lights[0].setPosition(10, 8, 10, 1);
         this.lights[0].setAmbient(0.4, 0.4, 0.4, 1.0);
         this.lights[0].setDiffuse(0.8, 0.8, 0.8, 1.0);
-        this.lights[0].setSpecular(5.0, 5.0, 5.0, 1.0);
+        this.lights[0].setSpecular(.5, .5, .5, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
 
@@ -87,11 +87,14 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
+        this.sphere.display();
+
         this.updateLights();
 
+        //this.treePatch.display();
         //this.floor.display();
-        //this.cubeMap.display();
-        this.campfire.display();
+        this.cubeMap.display();
+        //this.campfire.display();
 
         //this.slab.display();
 
