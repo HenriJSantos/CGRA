@@ -4,9 +4,10 @@
  * @param scene - Reference to MyScene object
  */
 class MyRoof extends CGFobject {
-    constructor(scene) {
+    constructor(scene, material) {
         super(scene);
         this.initBuffers();
+        this.material = material;
     }
     initBuffers() {
         this.indices = [
@@ -19,23 +20,23 @@ class MyRoof extends CGFobject {
         ];
 
         this.normals = [
-            1, 0.5, 0,
-            1, 0.5, 0,
-            1, 0.5, 0,
+            -1/1.118, 0.5/1.118, 0,
+            -1/1.118, 0.5/1.118, 0,
+            -1/1.118, 0.5/1.118, 0,
 
-            0,1,2,
-            0,1,2,
-            0,1,2,
-            0,1,2,
+            0,1/2.236,2/2.236,
+            0,1/2.236,2/2.236,
+            0,1/2.236,2/2.236,
+            0,1/2.236,2/2.236,
 
-            2,1,0,
-            2,1,0,
-            2,1,0,
+            2/2.236,1/2.236,0,
+            2/2.236,1/2.236,0,
+            2/2.236,1/2.236,0,
 
-            0,1,-2,
-            0,1,-2,
-            0,1,-2,
-            0,1,-2,
+            0,1/2.236,-2/2.236,
+            0,1/2.236,-2/2.236,
+            0,1/2.236,-2/2.236,
+            0,1/2.236,-2/2.236,
         ];
 
         this.vertices = [
@@ -81,6 +82,12 @@ class MyRoof extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
         this.updateTexCoordsGLBuffers();
+        //this.enableNormalViz();
+    }
+
+    display() {
+        this.material.apply();
+        super.display();
     }
 }
 

@@ -36,6 +36,8 @@ class MyScene extends CGFscene {
         this.sphere = new MySphere(this, 100, 100);
         let logTexture = new CGFtexture(this, 'textures/logTexture.jpg');
         this.campfire = new MyCampfire(this, logTexture, trunkTexture, false);
+        this.slab = new MySlab(this, 1,1,1);
+        this.cube = new MyUnitCubeQuad(this);
 
         this.door = new MyDoor(this);
 
@@ -44,10 +46,12 @@ class MyScene extends CGFscene {
         this.campfireLit = false;
     }
     initLights() {
-        /*this.lights[0].setPosition(10, 8, 10, 1);
-        this.lights[0].setDiffuse(0.2, 0.2, 0.2, 1.0);
+        this.lights[0].setPosition(10, 8, 10, 1);
+        this.lights[0].setAmbient(0.4, 0.4, 0.4, 1.0);
+        this.lights[0].setDiffuse(0.8, 0.8, 0.8, 1.0);
+        this.lights[0].setSpecular(5.0, 5.0, 5.0, 1.0);
         this.lights[0].enable();
-        this.lights[0].update();*/
+        this.lights[0].update();
 
         this.lights[1].setPosition(0, 0.5, 0, 1);
         this.lights[1].setDiffuse(2.0, 0.0, 0.0, 1.0);
@@ -85,12 +89,17 @@ class MyScene extends CGFscene {
 
         this.updateLights();
 
-        this.floor.display();
-        this.cubeMap.display();
+        //this.floor.display();
+        //this.cubeMap.display();
         this.campfire.display();
+
+        //this.slab.display();
+
+        //this.cube.display();
 
         this.pushMatrix();
         this.translate(0,2,15);
+        //this.slab.display();
         this.house.display();
         this.popMatrix();
 
