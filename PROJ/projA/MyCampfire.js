@@ -6,7 +6,7 @@
 class MyCampfire extends CGFobject {
 	constructor(scene, logTexture, trunkTexture, lit) {
 		super(scene);
-		this.sphere = new MySphere(this.scene, 4, 4);
+		this.sphere = new MySphere(this.scene, 5, 5);
 		this.log = new MyLog(this.scene, logTexture, trunkTexture);
 		this.smokeTexture = new CGFtexture(this.scene, 'textures/smokeTexture.jpg');
 		this.fireTexture = new CGFtexture(this.scene, 'textures/fireTexture.jpg');
@@ -15,9 +15,12 @@ class MyCampfire extends CGFobject {
 		this.fire = [];
 		this.smokeRate = 5;
 		this.fireRate = 1;
+		this.rockMaterial = new MyMaterial(this.scene, 'textures/rockTexture.jpg');
 	}
 
 	display() {
+
+		this.rockMaterial.apply();
 	    let angle = 2*Math.PI/9
 	    for (let i = 0; i < 9; i++) {
 	        this.scene.pushMatrix();

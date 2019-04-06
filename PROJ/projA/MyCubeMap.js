@@ -4,85 +4,119 @@
  * @param scene - Reference to MyScene object
  */
 class MyCubeMap extends CGFobject {
-	constructor(scene, texturesFolder) {
+	constructor(scene) {
 		super(scene);
-		this.topTexture = new CGFtexture(this.scene, 'textures/' + texturesFolder + '/' + texturesFolder + 'Top.jpg');
-	    this.leftTexture = new CGFtexture(this.scene, 'textures/' + texturesFolder + '/' + texturesFolder + 'Left.jpg');
-        this.frontTexture = new CGFtexture(this.scene, 'textures/' + texturesFolder + '/' + texturesFolder + 'Front.jpg');
-        this.rightTexture = new CGFtexture(this.scene, 'textures/' + texturesFolder + '/' + texturesFolder + 'Right.jpg');
-        this.backTexture = new CGFtexture(this.scene, 'textures/' + texturesFolder + '/' + texturesFolder + 'Back.jpg');
-        this.bottomTexture = new CGFtexture(this.scene, 'textures/' + texturesFolder + '/' + texturesFolder + 'Bottom.jpg');
+		this.initBuffers();
+	}
+	initBuffers() {
+		
+		this.vertices = [
+			-0.5, -0.5, -0.5,	 //0, Bottom Left Back
+			0.5, -0.5, -0.5,     //1, Bottom Right Back
+			-0.5, -0.5, 0.5,     //2, Bottom Left Front
+			0.5, -0.5, 0.5,      //3, Bottom Right Front
+			-0.5, 0.5, -0.5,	 //4, Top Left Back
+			0.5, 0.5, -0.5,      //5, Top Right Back
+			-0.5, 0.5, 0.5,	     //6, Top Left Front
+			0.5, 0.5, 0.5,       //7, Top Right Front
 
-        this.quad = new MyQuad(scene);
+			-0.5, -0.5, -0.5,	 //8, Left Bottom Back
+			-0.5, -0.5, 0.5,     //9, Left Bottom Front
+			-0.5, 0.5, -0.5,	 //10, Left Top Back
+			-0.5, 0.5, 0.5,	     //11, Left Top Front
+			0.5, -0.5, -0.5,     //12, Right Bottom Back
+			0.5, -0.5, 0.5,      //13, Right Bottom Front
+			0.5, 0.5, -0.5,      //14, Right Top Back
+			0.5, 0.5, 0.5,       //15, Right Top Front
 
-        this.baseMaterial = new CGFappearance(this.scene);
-        this.baseMaterial.setAmbient(5.0, 5.0, 5.0, 1.0);
-        this.baseMaterial.setDiffuse(0.0, 0.0, 0.0, 0.0);
-        this.baseMaterial.setSpecular(0.0, 0.0, 0.0, 0.0);
-        this.baseMaterial.setShininess(10.0);
-        this.baseMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-    }  
+			-0.5, -0.5, -0.5,	 //16, Back Bottom Left
+			0.5, -0.5, -0.5,     //17, Back Bottom Right
+			-0.5, 0.5, -0.5,	 //18, Back Top Left
+			0.5, 0.5, -0.5,      //19, Back Top Right
+			-0.5, -0.5, 0.5,     //20, Front Bottom Left
+			0.5, -0.5, 0.5,      //21, Front Bottom Right
+			-0.5, 0.5, 0.5,	     //22, Front Top Left
+			0.5, 0.5, 0.5,       //23, Front Top Right
+		];
 
-	display() {
-	    this.baseMaterial.setTexture(this.frontTexture);
-	    this.baseMaterial.apply();
-	   
-        this.scene.pushMatrix();
-        this.scene.translate(0,0,-150);
-        this.scene.scale(300, 300, 300);
-        this.quad.display();
-        this.scene.popMatrix();
+		this.normals = [
+			1, 1, 1,
+			1, -1, 1,
+			-1, 1, 1,
+			-1, -1, 1,
+			1, 1, -1,
+			1, -1, -1,
+			-1, 1, -1,
+			-1, -1, -1,
 
-        this.baseMaterial.setTexture(this.leftTexture);
-	    this.baseMaterial.apply();
+			1, 1, 1,
+			1, -1, 1,
+			-1, 1, 1,
+			-1, -1, 1,
+			1, 1, -1,
+			1, -1, -1,
+			-1, 1, -1,
+			-1, -1, -1,
 
-        this.scene.pushMatrix();
-        this.scene.translate(150, 0, 0);
-        this.scene.scale(300, 300, 300);
-        this.scene.rotate(-Math.PI/2,0,1,0);
-        this.quad.display();
-        this.scene.popMatrix();
+			1, 1, 1,
+			1, -1, 1,
+			-1, 1, 1,
+			-1, -1, 1,
+			1, 1, -1,
+			1, -1, -1,
+			-1, 1, -1,
+			-1, -1, -1
+		];
 
-        this.baseMaterial.setTexture(this.backTexture);
-	    this.baseMaterial.apply();
+		//Counter-clockwise reference of vertices
+		this.indices = [
+			0, 2, 1,			//Bottom
+			1, 2, 3,
+			4, 5, 6,			//Top
+			5, 7, 6,
+			8, 10, 9,			//Left
+			9, 10, 11,
+			12, 13, 14,			//Right
+			13, 15, 14,
+			16, 17, 18,			//Back
+			17, 19, 18,	
+			20, 22, 21,			//Front
+			21, 22, 23
+		];
 
-        this.scene.pushMatrix();
-        this.scene.translate(0,0,150);
-        this.scene.scale(300, 300, 300);
-        this.scene.rotate(Math.PI,0,1,0);
-        this.quad.display();
-        this.scene.popMatrix();
+		this.texCoords = [
+			1/2, 1,
+			1/4, 1,
+			1/2, 2/3,
+			1/4, 2/3,
 
-        this.baseMaterial.setTexture(this.rightTexture);
-	    this.baseMaterial.apply();
+			1/2, 0,
+			1/4, 0,
+			1/2, 1/3,
+			1/4, 1/3,
 
-        this.scene.pushMatrix();
-        this.scene.translate(-150, 0, 0);
-        this.scene.scale(300, 300, 300);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.quad.display();
-        this.scene.popMatrix();
+			3/4, 2/3,
+			1/2, 2/3,
+			3/4, 1/3,
+			1/2, 1/3,
 
-        this.baseMaterial.setTexture(this.topTexture);
-	    this.baseMaterial.apply();
+			0, 2/3,
+			1/4, 2/3,
+			0, 1/3,
+			1/4, 1/3,
 
-        this.scene.pushMatrix();
-        this.scene.translate(0, 150, 0);
-        this.scene.scale(300, 300, 300);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.quad.display();
-        this.scene.popMatrix();
+			3/4, 2/3,
+			1, 2/3,
+			3/4, 1/3,
+			1, 1/3,
 
-        this.baseMaterial.setTexture(this.bottomTexture);
-	    this.baseMaterial.apply();
-
-        this.scene.pushMatrix();
-        this.scene.translate(0, -150, 0);
-        this.scene.scale(300, 300, 300);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.scene.rotate(3*Math.PI/2,1,0,0);
-        this.quad.display();
-        this.scene.popMatrix();
+			1/2, 2/3,
+			1/4, 2/3,
+			1/2, 1/3,
+			1/4, 1/3,
+		];
+		this.primitiveType = this.scene.gl.TRIANGLES;
+		this.initGLBuffers();
 	}
 }
+

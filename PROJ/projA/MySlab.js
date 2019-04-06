@@ -16,6 +16,7 @@ class MySlab extends CGFobject {
         {
             this.plane.updateTexCoords(textCoords);
         }
+        this.plane.enableNormalViz();
     }
     updateBuffers() {
 

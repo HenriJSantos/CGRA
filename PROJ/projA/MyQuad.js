@@ -4,13 +4,11 @@
  * @param scene - Reference to MyScene object
  */
 class MyQuad extends CGFobject {
-	constructor(scene, coords, normals) {
+	constructor(scene, coords) {
 		super(scene);
 		this.initBuffers();
 		if (coords != undefined)
 			this.updateTexCoords(coords);
-		if (normals != undefined)
-			this.updateNormals(normals);
 	}
 	
 	initBuffers() {

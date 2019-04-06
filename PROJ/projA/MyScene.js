@@ -24,7 +24,7 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.cubeMap = new MyCubeMap(this, "DayLake");
+        this.cubeMap = new MyCubeMap(this);
         let grassTexture = new CGFtexture(this, 'textures/grassTexture.jpg');
         this.floor = new MyFloor(this, 60, grassTexture);
         let treeTopTexture = new CGFtexture(this, 'textures/treeTopTexture.jpg');
@@ -36,6 +36,12 @@ class MyScene extends CGFscene {
         this.sphere = new MySphere(this, 100, 100);
         let logTexture = new CGFtexture(this, 'textures/logTexture.jpg');
         this.campfire = new MyCampfire(this, logTexture, trunkTexture, false);
+        let cubeMapMaterialProperties = [
+            5.0, 5.0, 5.0, 1.0,
+            0.0, 0.0, 0.0, 0.0,
+            0.0, 0.0, 0.0, 0.0
+        ];
+        this.cubeMapMaterial = new MyMaterial(this, 'textures/DayCubeMap.png', ["CLAMP_TO_EDGE", "CLAMP_TO_EDGE"], 10, cubeMapMaterialProperties);
 
         this.door = new MyDoor(this);
 
@@ -44,10 +50,11 @@ class MyScene extends CGFscene {
         this.campfireLit = false;
     }
     initLights() {
-        /*this.lights[0].setPosition(10, 8, 10, 1);
-        this.lights[0].setDiffuse(0.2, 0.2, 0.2, 1.0);
+        this.lights[0].setPosition(10, 150, 10, 1);
+        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].setSpecular(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
-        this.lights[0].update();*/
+        this.lights[0].update();
 
         this.lights[1].setPosition(0, 0.5, 0, 1);
         this.lights[1].setDiffuse(2.0, 0.0, 0.0, 1.0);
@@ -85,8 +92,13 @@ class MyScene extends CGFscene {
 
         this.updateLights();
 
-        this.floor.display();
+        this.pushMatrix();
+        this.scale(300, 300, 300);
+        this.cubeMapMaterial.apply();
         this.cubeMap.display();
+        this.popMatrix();
+
+        this.floor.display();
         this.campfire.display();
 
         this.pushMatrix();
@@ -102,7 +114,7 @@ class MyScene extends CGFscene {
     }
 
     updateLights() {
-        //this.lights[0].update();
+        this.lights[0].update();
         this.lights[1].setLinearAttenuation(0.05/this.scaleFactor);
         this.lights[1].update();
     }
