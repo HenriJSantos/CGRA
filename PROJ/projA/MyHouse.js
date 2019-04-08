@@ -13,19 +13,24 @@ class MyHouse extends CGFobject {
 
         this.doorHeight = 3/4 * this.walls_height;
 
-        this.leftWindowWidth = this.sideWalls_width/2;
-        this.leftWindowHeight = this.walls_height/2;
-        this.leftWindowThick = this.walls_thick/4;
-        this.leftWindowAngle = Math.PI/3;
-        this.leftWallWidht = (this.sideWalls_width - this.leftWindowWidth)/2;
-        this.leftBordersHeight = (this.walls_height - this.leftWindowHeight)/2;
+        this.setLeftWallSize();
+
+        this.backWindowWidth = this.backwall_width/2;
+        this.backWindowHeight = this.walls_height/2;
+        this.backWindowThick = this.walls_thick/4;
+        this.backBordersHeight = (this.walls_height - this.backWindowHeight)/2;
+        this.backSideBordersHeight = this.walls_height - 2*this.backBordersHeight;
+        this.backSideBordersWidth = (this.backwall_width - this.backWindowWidth)/2;
 
         let frontWallWidth = this.backwall_width/2.5;
         let doorTopWidth = (this.backwall_width - frontWallWidth*2);
         let doorTopHeight = this.walls_height - this.doorHeight;
 
-        this.woodMaterial = new MyMaterial(scene, 'textures/HouseTextures/woodWall.jpeg');
-        this.roofMaterial = new MyMaterial(scene, 'textures/HouseTextures/roofTexture.jpg');
+        let woodMaterial = new MyMaterial(scene, 'textures/HouseTextures/woodWall.jpeg');
+        let roofMaterial = new MyMaterial(scene, 'textures/HouseTextures/roofTexture.jpg');
+        let woodWindowMat = new MyMaterial(scene, 'textures/HouseTextures/woodWindow.png');
+        let woodWindowBorderMat = new MyMaterial(scene, 'textures/HouseTextures/woodWindowBorder.png');
+        let glassWindowMat = new MyMaterial(scene, 'textures/HouseTextures/GlassWindowTexture.png');
 
         let doorTopTextCoords = this.getWallTextCoords(doorTopWidth, doorTopHeight);
         let sideWallTextCoords = this.getWallTextCoords(this.sideWalls_width);
@@ -33,20 +38,30 @@ class MyHouse extends CGFobject {
         let leftWallsTextCoords = this.getWallTextCoords(this.leftWallWidht);
         let leftBordersTextCoords = this.getWallTextCoords(this.leftWindowWidth, this.leftBordersHeight);
 
-        this.backWall = new MySlab(scene, this.backwall_width, this.walls_height, this.walls_thick, this.woodMaterial, backWallTextCoords);
+        this.backWindow = new MySlab(scene, this.backWindowWidth, this.backWindowHeight, this.backWindowThick, glassWindowMat);
+        this.backWall = new MySlab(scene, this.backwall_width, this.walls_height, this.walls_thick, woodMaterial, undefined, backWallTextCoords);
 
-        this.frontWalls = new MySlab(scene, frontWallWidth, this.walls_height, this.walls_thick, this.woodMaterial);
-        this.doorTopWall = new MySlab(scene, doorTopWidth, doorTopHeight, this.walls_thick, this.woodMaterial, doorTopTextCoords);
+        this.frontWalls = new MySlab(scene, frontWallWidth, this.walls_height, this.walls_thick, woodMaterial);
+        this.doorTopWall = new MySlab(scene, doorTopWidth, doorTopHeight, this.walls_thick, woodMaterial, undefined, doorTopTextCoords);
 
-        this.rightSideWall = new MySlab(scene, this.sideWalls_width, this.walls_height, this.walls_thick, this.woodMaterial, sideWallTextCoords);
-        this.leftSideWalls = new MySlab(scene, this.leftWallWidht, this.walls_height, this.walls_thick, this.woodMaterial, leftWallsTextCoords);
-        this.leftBorders = new MySlab(scene, this.leftWindowWidth, this.leftBordersHeight, this.walls_thick, this.woodMaterial, leftBordersTextCoords);
-        this.leftWindow = new MySlab(scene, this.leftWindowWidth/2, this.leftWindowHeight, this.leftWindowThick);
+        this.rightSideWall = new MySlab(scene, this.sideWalls_width, this.walls_height, this.walls_thick, woodMaterial, undefined, sideWallTextCoords);
+        this.leftSideWalls = new MySlab(scene, this.leftWallWidht, this.walls_height, this.walls_thick, woodMaterial, undefined, leftWallsTextCoords);
+        this.leftBorders = new MySlab(scene, this.leftWindowWidth, this.leftBordersHeight, this.walls_thick, woodMaterial, undefined, leftBordersTextCoords);
+        this.leftWindow = new MySlab(scene, this.leftWindowWidth/2, this.leftWindowHeight, this.leftWindowThick, woodWindowMat, woodWindowBorderMat);
 
         this.floor = new MySlab(scene, this.backwall_width, this.sideWalls_width + this.walls_thick*2, 0);
         this.ceiling = new MySlab(scene, this.backwall_width + this.walls_thick*2, this.sideWalls_width + this.walls_thick*4, 0);
-        this.roof = new MyRoof(scene, this.roofMaterial);
+        this.roof = new MyRoof(scene, roofMaterial);
         this.door = new MyDoor(scene, 'textures/HouseTextures/doorTexture.png', 'textures/HouseTextures/knobTexture.jpg');
+    }
+
+    setLeftWallSize() {
+        this.leftWindowWidth = this.sideWalls_width / 2;
+        this.leftWindowHeight = this.walls_height / 2;
+        this.leftWindowThick = this.walls_thick / 4;
+        this.leftWindowAngle = Math.PI / 3;
+        this.leftWallWidht = (this.sideWalls_width - this.leftWindowWidth) / 2;
+        this.leftBordersHeight = (this.walls_height - this.leftWindowHeight) / 2;
     }
 
     getWallTextCoords(width, height) {
@@ -129,6 +144,7 @@ class MyHouse extends CGFobject {
         this.scene.translate(-this.backwall_width/2, 0, -this.leftWallWidht - this.leftWindowWidth);
         this.scene.rotate(-this.leftWindowAngle, 0,1,0);
         this.scene.translate(-this.leftWindowWidth/4,0,0);
+        this.scene.rotate(Math.PI, 1,0,0);
         this.leftWindow.display();
         this.scene.popMatrix();
 
