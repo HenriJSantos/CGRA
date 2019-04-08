@@ -31,6 +31,7 @@ class MyHouse extends CGFobject {
         let woodWindowMat = new MyMaterial(scene, 'textures/HouseTextures/woodWindow.png');
         let woodWindowBorderMat = new MyMaterial(scene, 'textures/HouseTextures/woodWindowBorder.png');
         let glassWindowMat = new MyMaterial(scene, 'textures/HouseTextures/GlassWindowTexture.png');
+        let ceilingMat = new MyMaterial(scene, 'textures/HouseTextures/ceilingTexture.png', ['CLAMP_TO_EDGE', 'CLAMP_TO_EDGE']);
 
         let doorTopTextCoords = this.getWallTextCoords(doorTopWidth, doorTopHeight);
         let sideWallTextCoords = this.getWallTextCoords(this.sideWalls_width);
@@ -38,6 +39,12 @@ class MyHouse extends CGFobject {
         let leftWallsTextCoords = this.getWallTextCoords(this.leftWallWidht);
         let leftBordersTextCoords = this.getWallTextCoords(this.leftWindowWidth, this.leftBordersHeight);
         let backBorderTextCoords = this.getWallTextCoords(this.backwall_width, this.backBordersHeight);
+        let ceilingTextCoords = [
+            -0.1, 1.1,
+            1.1, 1.1,
+            -0.1, -0.1,
+            1.1, -0.1,
+        ];
 
         this.backWindow = new MySlab(scene, this.backWindowWidth, this.backWindowHeight, this.backWindowThick, glassWindowMat);
         this.backBorder = new MySlab(scene, this.backwall_width, this.backBordersHeight, this.walls_thick, woodMaterial, undefined, backBorderTextCoords);
@@ -52,7 +59,7 @@ class MyHouse extends CGFobject {
         this.leftWindow = new MySlab(scene, this.leftWindowWidth/2, this.leftWindowHeight, this.leftWindowThick, woodWindowMat, woodWindowBorderMat);
 
         this.floor = new MySlab(scene, this.backwall_width, this.sideWalls_width + this.walls_thick*2, 0);
-        this.ceiling = new MySlab(scene, this.backwall_width + this.walls_thick*2, this.sideWalls_width + this.walls_thick*4, 0);
+        this.ceiling = new MySlab(scene, this.backwall_width + this.walls_thick*2, this.sideWalls_width + this.walls_thick*4, 0, ceilingMat, undefined, ceilingTextCoords);
         this.roof = new MyRoof(scene, roofMaterial);
         this.door = new MyDoor(scene, 'textures/HouseTextures/doorTexture.png', 'textures/HouseTextures/knobTexture.jpg');
     }
