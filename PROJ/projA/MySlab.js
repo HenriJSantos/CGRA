@@ -1,10 +1,15 @@
+function invertTexCoords(texCoords) {
+    let newTexCoords = [texCoords[6], texCoords[7], texCoords[4], texCoords[5], texCoords[2], texCoords[3], texCoords[0], texCoords[1]]
+    return newTexCoords;
+}
+
 /**
  * MySlab
  * @constructor
  * @param scene - Reference to MyScene object
  */
 class MySlab extends CGFobject {
-    constructor(scene, width, height, thickness, material, textCoords) {
+    constructor(scene, width, height, thickness, material, borderMaterial, textCoords) {
         super(scene);
         this.quadPol = new MyQuad(scene);
 
@@ -22,7 +27,15 @@ class MySlab extends CGFobject {
         {
             this.quadPol.updateTexCoords(textCoords);
         }
-        
+
+        if(borderMaterial != undefined )
+        {
+            this.borderMaterial = borderMaterial;
+        }
+
+        textCoords = invertTexCoords(this.quadPol.getTexCoords());
+        this.quadPolBack = new MyQuad(scene, textCoords);
+
     }
     updateBuffers() {
 
@@ -43,9 +56,10 @@ class MySlab extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0,0,-0.5);
         this.scene.scale(-1,1,1);
-        this.quadPol.display();
+        this.quadPolBack.display();
         this.scene.popMatrix();
 
+        if(this.borderMaterial != null) this.borderMaterial.apply();
         //RIGHT
         this.scene.pushMatrix();
         this.scene.translate(0.5,0,0);
