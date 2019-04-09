@@ -51,8 +51,6 @@ class MyScene extends CGFscene {
         this.slab = new MySlab(this, 1,1,1);
         this.cube = new MyUnitCubeQuad(this);
 
-        this.door = new MyDoor(this);
-
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
         this.campfireLit = false;
