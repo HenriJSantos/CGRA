@@ -4,7 +4,7 @@
  * @param scene - Reference to MyScene object
  */
 class MyLog extends CGFobject {
-	constructor(scene, logTexture, trunkTexture) {
+	constructor(scene, logTexture, trunkTexture, length, diameter) {
 		super(scene);
 		this.logTexture = logTexture;
 		this.trunkTexture = trunkTexture;

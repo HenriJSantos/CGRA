@@ -37,7 +37,6 @@ class MyScene extends CGFscene {
         this.hill1 = new MyVoxelHill(this, 4, grassTexture);
         this.hill2 = new MyVoxelHill(this, 6, grassTexture);
         this.hill3 = new MyVoxelHill(this, 8, grassTexture);
-        this.sphere = new MySphere(this, 100, 100);
         let logTexture = new CGFtexture(this, 'textures/logTexture.jpg');
         this.campfire = new MyCampfire(this, logTexture, trunkTexture, false);
         let cubeMapMaterialProperties = [
@@ -55,10 +54,11 @@ class MyScene extends CGFscene {
         this.lights[0].setPosition(10, 150, 10, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setAmbient(0.4,0.4,0.4,1.0);
         this.lights[0].enable();
         this.lights[0].update();
 
-        this.lights[2].setPosition(0, 0.5, 0, 1);
+        this.lights[2].setPosition(0, 0.5, 8, 1);
         this.lights[2].setDiffuse(1.0, 0.2, 0.0, 1.0);
         this.lights[2].setSpecular(0.0, 0.0, 0.0, 1.0);
         this.lights[2].setConstantAttenuation(0.2);
@@ -106,7 +106,10 @@ class MyScene extends CGFscene {
         this.floor.display();
 
         // MyCampfire
+        this.pushMatrix();
+        this.translate(0,0,8);
         this.campfire.display();
+        this.popMatrix();
 
         // MyVoxelHill
         this.pushMatrix();
@@ -167,7 +170,8 @@ class MyScene extends CGFscene {
 
         // MyHouse
         this.pushMatrix();
-        this.translate(0,2,-10);
+        this.translate(0,2.5,-10);
+        this.rotate(Math.PI, 0,1,0);
         this.house.display();
         this.popMatrix();
 
@@ -180,7 +184,7 @@ class MyScene extends CGFscene {
 
     updateLights() {
         this.lights[0].update();
-        this.lights[2].setLinearAttenuation(0.05/this.scaleFactor);
+        this.lights[2].setLinearAttenuation(0.2/this.scaleFactor);
         this.lights[2].update();
     }
 }

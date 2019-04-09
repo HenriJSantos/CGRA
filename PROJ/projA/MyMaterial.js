@@ -8,8 +8,8 @@ class MyMaterial extends CGFappearance {
         super(scene);
         let defaultShine = 10.0;
         let defaultProperties = [
-            0.6, 0.6, 0.6, 1.0,     //Ambient
-            0.8, 0.8, 0.8, 1.0,     //Diffuse
+            0.7, 0.7, 0.7, 1.0,     //Ambient
+            0.4, 0.4, 0.4, 1.0,     //Diffuse
             0.05, 0.05, 0.05, 0.2,     //Specular
         ];
         let defaultWrap = [

@@ -65,11 +65,6 @@ class MyQuad extends CGFobject {
 		this.updateTexCoordsGLBuffers();
 	}
 
-	updateNormals(normals) {
-		this.normals = [...normals];
-		this.initGLBuffers();
-	}
-
 	getTexCoords()
 	{
 		return this.texCoords;
