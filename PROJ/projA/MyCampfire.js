@@ -10,6 +10,8 @@ class MyCampfire extends CGFobject {
 		this.log = new MyLog(this.scene, logTexture, trunkTexture);
 		this.smokeTexture = new CGFtexture(this.scene, 'textures/smokeTexture.jpg');
 		this.fireTexture = new CGFtexture(this.scene, 'textures/fireTexture.jpg');
+		this.numRocks = 9;
+		this.numLogs = 6;
 		this.lit = lit;
 		this.smoke = [];
 		this.fire = [];
@@ -21,8 +23,8 @@ class MyCampfire extends CGFobject {
 	display() {
 
 		this.rockMaterial.apply();
-	    let angle = 2*Math.PI/9
-	    for (let i = 0; i < 9; i++) {
+	    let angle = 2*Math.PI/this.numRocks;
+	    for (let i = 0; i < this.numRocks; i++) {
 	        this.scene.pushMatrix();
 	        this.scene.scale(0.5,0.5,0.5);
 	        this.scene.translate(2*Math.cos(angle*i), 0, 2*Math.sin(angle*i));
@@ -31,28 +33,16 @@ class MyCampfire extends CGFobject {
 	        this.scene.popMatrix();
 	    }
 
-	    this.scene.pushMatrix();
-	    this.scene.translate(0.7, 0, 0);
-	    this.scene.rotate(Math.PI/9, 0, 0, 1);
-	    this.scene.scale(0.25,1.3,0.25);
-	    this.log.display();
-	    this.scene.popMatrix();
-
-	    this.scene.pushMatrix();
-	    this.scene.translate(0.7*Math.cos(2/3*Math.PI), 0, 0.7*Math.sin(2/3*Math.PI));
-	    this.scene.rotate(-2/3*Math.PI, 0, 1, 0);
-	    this.scene.rotate(Math.PI/9, 0, 0, 1);
-	    this.scene.scale(0.25,1.3,0.25);
-	    this.log.display();
-	    this.scene.popMatrix();
-
-	    this.scene.pushMatrix();
-	    this.scene.translate(0.7*Math.cos(4/3*Math.PI), 0, 0.7*Math.sin(4/3*Math.PI));
-	    this.scene.rotate(-4/3*Math.PI, 0, 1, 0);
-	    this.scene.rotate(Math.PI/9, 0, 0, 1);
-	    this.scene.scale(0.25,1.3,0.25);
-	    this.log.display();
-	    this.scene.popMatrix();
+		angle = 2*Math.PI/this.numLogs;
+		for (let i = 0; i < this.numLogs; i++) {
+			this.scene.pushMatrix();
+			this.scene.translate(0.7*Math.cos(angle*i), 0, 0.7*Math.sin(angle*i));
+			this.scene.rotate(-angle*i, 0, 1, 0);
+			this.scene.rotate(Math.PI/7, 0, 0, 1);
+			this.scene.scale(0.125,1.2,0.125);
+			this.log.display();
+			this.scene.popMatrix();
+		}
 
 		for (let i in this.smoke) {
 			this.smoke[i].display();
@@ -76,8 +66,10 @@ class MyCampfire extends CGFobject {
 			if(Math.round(currTime/100) % this.smokeRate == 0)
 				this.smoke.push(new MyParticle(this.scene, this.smokeTexture));
 
-			if(Math.round(currTime/100) % this.fireRate == 0)
+			if(Math.round(currTime/100) % this.fireRate == 0) {
 				this.fire.push(new MyParticle(this.scene, this.fireTexture));
+				this.fire.push(new MyParticle(this.scene, this.fireTexture));
+			}
 		}
 
 		for (let i in this.smoke) {
@@ -88,7 +80,7 @@ class MyCampfire extends CGFobject {
 
 		for (let i in this.fire) {
 			this.fire[i].update();
-			if(this.fire[i].iterationsAlive >= 50)
+			if(this.fire[i].iterationsAlive >= 40)
 				delete this.fire[i];
 		}
 	}

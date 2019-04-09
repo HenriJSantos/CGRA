@@ -33,19 +33,19 @@ class MyHouse extends CGFobject {
         let leftWallsTextCoords = this.getWallTextCoords(this.leftWallWidht);
         let leftBordersTextCoords = this.getWallTextCoords(this.leftWindowWidth, this.leftBordersHeight);
 
-        this.backWall = new MySlab(scene, this.backwall_width, this.walls_height, this.walls_thick, backWallTextCoords);
+        this.backWall = new MySlab(scene, this.backwall_width, this.walls_height, this.walls_thick, this.woodMaterial, backWallTextCoords);
 
-        this.frontWalls = new MySlab(scene, frontWallWidth, this.walls_height, this.walls_thick);
-        this.doorTopWall = new MySlab(scene, doorTopWidth, doorTopHeight, this.walls_thick, doorTopTextCoords);
+        this.frontWalls = new MySlab(scene, frontWallWidth, this.walls_height, this.walls_thick, this.woodMaterial);
+        this.doorTopWall = new MySlab(scene, doorTopWidth, doorTopHeight, this.walls_thick, this.woodMaterial, doorTopTextCoords);
 
-        this.rightSideWall = new MySlab(scene, this.sideWalls_width, this.walls_height, this.walls_thick, sideWallTextCoords);
-        this.leftSideWalls = new MySlab(scene, this.leftWallWidht, this.walls_height, this.walls_thick, leftWallsTextCoords);
-        this.leftBorders = new MySlab(scene, this.leftWindowWidth, this.leftBordersHeight, this.walls_thick, leftBordersTextCoords);
+        this.rightSideWall = new MySlab(scene, this.sideWalls_width, this.walls_height, this.walls_thick, this.woodMaterial, sideWallTextCoords);
+        this.leftSideWalls = new MySlab(scene, this.leftWallWidht, this.walls_height, this.walls_thick, this.woodMaterial, leftWallsTextCoords);
+        this.leftBorders = new MySlab(scene, this.leftWindowWidth, this.leftBordersHeight, this.walls_thick, this.woodMaterial, leftBordersTextCoords);
         this.leftWindow = new MySlab(scene, this.leftWindowWidth/2, this.leftWindowHeight, this.leftWindowThick);
 
         this.floor = new MySlab(scene, this.backwall_width, this.sideWalls_width + this.walls_thick*2, 0);
         this.ceiling = new MySlab(scene, this.backwall_width + this.walls_thick*2, this.sideWalls_width + this.walls_thick*4, 0);
-        this.roof = new MyRoof(scene);
+        this.roof = new MyRoof(scene, this.roofMaterial);
         this.door = new MyDoor(scene, 'textures/HouseTextures/doorTexture.png', 'textures/HouseTextures/knobTexture.jpg');
     }
 
@@ -63,7 +63,6 @@ class MyHouse extends CGFobject {
     }
 
     display() {
-        this.woodMaterial.apply();
         //FRONT WALL1
         this.scene.pushMatrix();
         this.scene.translate(-(this.backwall_width - this.backwall_width/2.5)/2,0,this.walls_thick/2);
@@ -154,7 +153,6 @@ class MyHouse extends CGFobject {
         this.scene.popMatrix();
 
         //ROOF
-        this.roofMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(0, this.walls_height/2,-this.sideWalls_width/2);
         this.scene.scale(this.backwall_width/2 + this.walls_thick, 3, this.sideWalls_width + this.walls_thick*4);

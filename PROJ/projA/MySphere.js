@@ -22,23 +22,17 @@ class MySphere extends CGFobject {
 
 		for(let i = 0, stackAngle = Math.PI/2; i <= this.stackCount; i++, stackAngle -= stackStep)
 		{
-			let xz = Math.cos(stackAngle);
-
 			for(let j = 0, sectorAngle = 0; j <= this.sectorCount; j++, sectorAngle += sectorStep)
 			{
-				this.vertices.push(xz * Math.cos(sectorAngle), Math.sin(stackAngle), xz * Math.sin(sectorAngle));
-				this.normals.push(xz * Math.cos(sectorAngle), Math.sin(stackAngle), xz * Math.sin(sectorAngle));
+				this.vertices.push(Math.cos(stackAngle) * Math.cos(sectorAngle), Math.sin(stackAngle), Math.cos(stackAngle) * Math.sin(sectorAngle));
+				this.normals.push(Math.cos(stackAngle) * Math.cos(sectorAngle), Math.sin(stackAngle), Math.cos(stackAngle) * Math.sin(sectorAngle));
 				this.texCoords.push(j/this.sectorCount, i/this.stackCount);
 			}
 		}
 
-		let k1, k2;
 		for(let i = 0; i < this.stackCount; ++i)
 		{
-			k1 = i * (this.sectorCount + 1);
-			k2 = k1 + this.sectorCount + 1;
-
-			for(let j = 0; j < this.sectorCount; ++j, ++k1, ++k2)
+			for(let j = 0; j < this.sectorCount; j++)
 			{
 				if(i > 0)
 				{
