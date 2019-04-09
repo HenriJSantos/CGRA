@@ -56,11 +56,11 @@ class MyCampfire extends CGFobject {
 	update(currTime) {
 		if(this.scene.campfireLit) {
 			this.lit = true;
-			this.scene.lights[1].enable();
+			this.scene.lights[2].enable();
 		}
 		else {
 			this.lit = false;
-			this.scene.lights[1].disable();
+			this.scene.lights[2].disable();
 		}
 		if(this.lit) {
 			if(Math.round(currTime/100) % this.smokeRate == 0)
