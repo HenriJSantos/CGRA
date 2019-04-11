@@ -49,6 +49,9 @@ class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
         this.campfireLit = false;
+
+        //TEMPORARY
+        this.garage = new MyGarage(this, 4,3,8,0.3);
     }
     initLights() {
         this.lights[0].setPosition(10, 150, 10, 1);

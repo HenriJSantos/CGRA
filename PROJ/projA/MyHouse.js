@@ -69,6 +69,9 @@ class MyHouse extends CGFobject {
 
         this.chairHeight = 1;
         this.chair = new MyChair(scene, 1.5,1.5,this.chairHeight ,woodMaterial);
+
+        this.garageLength = this.sideWalls_width;
+        this.garage = new MyGarage(scene, this.sideWalls_width, this.walls_height, this.sideWalls_width, this.walls_thick/2)
     }
 
     setBackWallSizes() {
@@ -104,6 +107,11 @@ class MyHouse extends CGFobject {
 
     display() {
         this.displayFrontWall();
+
+        this.scene.pushMatrix();
+        this.scene.translate(this.backwall_width/2 + this.garageLength/2, this.walls_height/2, -this.sideWalls_width/2);
+        this.garage.display();
+        this.scene.popMatrix();
 
         //RIGHT WALL
         this.scene.pushMatrix();
