@@ -19,11 +19,13 @@ class MyGarage extends CGFobject {
 
         this.columnRadius = 0.3;
 
-        let TopMat = new MyMaterial(scene);
+        let TopMat = new MyMaterial(scene, 'textures/HouseTextures/yellowTent.png');
+        let BordersMat = new MyMaterial(scene, 'textures/HouseTextures/yellowTentBorders.png');
+        this.woodMat = new MyMaterial(scene, 'textures/HouseTextures/WoodPillar.jpeg');
 
-        this.top = new MySlab(scene, this.topWidth, this.topLength, this.topThick, TopMat);
-        this.triangle = new MyTriangle(scene, this.triangleSize, this.triangleSize, this.triangleThick, TopMat);
-        this.column = new MyPrism(scene, 8);
+        this.top = new MySlab(scene, this.topWidth, this.topLength, this.topThick, TopMat, BordersMat);
+        this.triangle = new MyTriangle(scene, this.triangleSize, this.triangleSize, this.triangleThick, BordersMat);
+        this.column = new MyPrism(scene, 6);
     }
 
     display() {
@@ -33,6 +35,7 @@ class MyGarage extends CGFobject {
         this.top.display();
         this.scene.popMatrix();
 
+        this.woodMat.apply();
         //COLUMN1
         this.scene.pushMatrix();
         this.scene.translate(this.topWidth/2 - this.columnRadius - this.triangleThick,-this.height - this.topThick/2,this.topLength/2 - this.columnRadius - this.triangleThick);

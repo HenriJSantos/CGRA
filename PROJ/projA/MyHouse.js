@@ -64,14 +64,19 @@ class MyHouse extends CGFobject {
         let rugMat = new MyMaterial(scene, 'textures/HouseTextures/rugTexture.png');
 
         this.rug = new MySlab(scene, this.rugWIdth, this.rugLength, this.rugThick, rugMat);
+        let tableMat = new MyMaterial(scene, 'textures/HouseTextures/woodenTable.jpg');
         this.tableHeight = 1.5;
-        this.table = new MyTable(scene, 3, 2, this.tableHeight, woodMaterial);
+        this.table = new MyTable(scene, 3, 2, this.tableHeight, tableMat);
 
+        let chairMat = new MyMaterial(scene, 'textures/HouseTextures/chairTexture.png');
         this.chairHeight = 1;
-        this.chair = new MyChair(scene, 1.5,1.5,this.chairHeight ,woodMaterial);
+        this.chair = new MyChair(scene, 1.5,1.5,this.chairHeight ,chairMat);
 
         this.garageLength = this.sideWalls_width;
-        this.garage = new MyGarage(scene, this.sideWalls_width, this.walls_height, this.sideWalls_width, this.walls_thick/2)
+        this.garageHeight = this.walls_height - this.walls_thick;
+        this.garage = new MyGarage(scene, this.sideWalls_width, this.garageHeight, Math.ceil(this.sideWalls_width), this.walls_thick/2);
+
+
     }
 
     setBackWallSizes() {
@@ -109,7 +114,7 @@ class MyHouse extends CGFobject {
         this.displayFrontWall();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.backwall_width/2 + this.garageLength/2, this.walls_height/2, -this.sideWalls_width/2);
+        this.scene.translate(this.backwall_width/2 + this.garageLength/2, this.garageHeight/2, -this.sideWalls_width/2);
         this.garage.display();
         this.scene.popMatrix();
 

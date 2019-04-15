@@ -38,11 +38,11 @@ class MyTriangle extends CGFobject {
         this.texCoords = [
             1, 1,   //0
             0, 1, 	//1
-            0, 0, 	//2
+            0.5, 0.5, 	//2
 
             1, 1,   //3
             0, 1, 	//4
-            0, 0, 	//5
+            0.5, 0.5, 	//5
         ];
 
 		//Counter-clockwise reference of vertices
