@@ -264,6 +264,13 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         // ---- END Primitive drawing section
+
+        this.car = new MyCar(this, 4, 10, 4);
+        this.pushMatrix();
+        this.translate(-7.5,1.5,-4);
+        this.car.display();
+        this.popMatrix();
+
     }
 
     update(currTime) {

@@ -4,7 +4,7 @@
  * @param scene - Reference to MyScene object
  */
 class MyLog extends CGFobject {
-	constructor(scene, logTexture, trunkTexture, length, diameter) {
+	constructor(scene, logTexture, trunkTexture, thickness, diameter) {
 		super(scene);
 		this.logTexture = logTexture;
 		this.trunkTexture = trunkTexture;
@@ -18,9 +18,20 @@ class MyLog extends CGFobject {
         this.baseMaterial.setSpecular(0.2, 0.2, 0.2, 1.0);
         this.baseMaterial.setShininess(10.0);
         this.baseMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+        if(thickness != undefined)
+		{
+			this.thickness = thickness;
+			this.diameter = diameter;
+		}
 	}
 
 	display() {
+		if(this.thickness != null)
+		{
+			this.scene.scale(this.diameter, this.thickness, this.diameter);
+		}
+
 	    this.baseMaterial.setTexture(this.trunkTexture);
 	    this.baseMaterial.apply();
 	   	
