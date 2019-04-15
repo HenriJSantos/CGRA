@@ -4,9 +4,10 @@
  * @param scene - Reference to MyScene object
  */
 class MyFloor extends CGFobject {
-	constructor(scene, radius, groundTexture) {
+	constructor(scene, width, length, groundTexture) {
 		super(scene);
-		this.radius = radius;
+		this.width = width;
+		this.length = length
 		this.groundTexture = groundTexture;
 		this.quad = new MyQuad(scene);
 
@@ -21,8 +22,8 @@ class MyFloor extends CGFobject {
 	display() {
 		this.baseMaterial.setTexture(this.groundTexture);
 	    this.baseMaterial.apply();
-	    for(let i = -this.radius/2; i <= this.radius/2; i++) {
-	        for (let j = -this.radius/2; j <= this.radius/2; j++) {
+	    for(let i = -this.width/2; i <= this.width/2; i++) {
+	        for (let j = -this.length/2; j <= this.length/2; j++) {
 					this.scene.pushMatrix();
 					this.scene.translate(2*i,0,2*j);
 					this.scene.scale(2,1,2);
