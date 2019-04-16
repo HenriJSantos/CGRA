@@ -76,7 +76,7 @@ class MyScene extends CGFscene {
         this.campfireLit = false;
 
         //TEMPORARY
-        this.garage = new MyGarage(this, 4,3,8,0.3);
+        this.car = new MyCar(this, 4, 10, 4);
     }
     initLights() {
         this.lights[0].setPosition(10, 150, 10, 1);
@@ -265,7 +265,6 @@ class MyScene extends CGFscene {
 
         // ---- END Primitive drawing section
 
-        this.car = new MyCar(this, 4, 10, 4);
         this.pushMatrix();
         this.translate(-7.5,1.5,-4);
         this.car.display();

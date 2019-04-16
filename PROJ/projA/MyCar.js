@@ -30,11 +30,11 @@ class MyCar extends CGFobject {
 
         this.wheelThick = 0.6;
         this.wheelDiameter = 1;
-        let wheelTex1 = new CGFtexture(this, 'textures/HouseTextures/knobTexture.jpg');
-        this.wheel = new MyLog(scene, wheelTex1, wheelTex1, this.wheelThick, this.wheelDiameter);
+        let wheelTex = new CGFtexture(scene, 'textures/CarTextures/WheelTexture.png');
+        let tireTex = new CGFtexture(scene, 'textures/CarTextures/tireTexture.png');
+        this.wheel = new MyLog(scene, wheelTex, tireTex, this.wheelThick, this.wheelDiameter);
         this.backWheelOffset = 0.15 * this.length;
         this.frontWheelOffset = 0.2 * this.length;
-
     }
 
     display() {
