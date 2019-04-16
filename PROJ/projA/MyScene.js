@@ -70,13 +70,13 @@ class MyScene extends CGFscene {
         let umbrella1Material3 = new MyMaterial(this, 'textures/umbrella3.jpg', ["REPEAT", "REPEAT"], 10, beachballMaterialProperties);
         this.umbrella3 = new MyUmbrella(this, umbrella1Material3);
 
+        this.car = new MyCar(this, 4, 10, 4);
+
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
         this.night = false;
         this.campfireLit = false;
-
-        //TEMPORARY
-        this.car = new MyCar(this, 4, 10, 4);
+        this.carLights = false;
     }
     initLights() {
         this.lights[0].setPosition(10, 150, 10, 1);
@@ -101,6 +101,22 @@ class MyScene extends CGFscene {
         this.lights[2].setLinearAttenuation(0.05/this.scaleFactor);
         this.lights[2].enable();
         this.lights[2].update();
+
+        this.lights[3].setPosition(-9,2.5,0, 1);
+        this.lights[3].setDiffuse(0.9, 1.0, 0.6, .7);
+        this.lights[3].setSpecular(0.7, .8, 0.4, .5);
+        this.lights[3].setConstantAttenuation(0.1);
+        this.lights[3].setLinearAttenuation(0.05/this.scaleFactor);
+        this.lights[3].enable();
+        this.lights[3].update();
+
+        this.lights[4].setPosition(-7,2.5,0, 1);
+        this.lights[4].setDiffuse(0.9, 1.0, 0.6, .7);
+        this.lights[4].setSpecular(0.7, .8, 0.4, .5);
+        this.lights[4].setConstantAttenuation(0.1);
+        this.lights[4].setLinearAttenuation(0.05/this.scaleFactor);
+        this.lights[4].enable();
+        this.lights[4].update();
     }
         initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
@@ -266,7 +282,7 @@ class MyScene extends CGFscene {
         // ---- END Primitive drawing section
 
         this.pushMatrix();
-        this.translate(-7.5,1.5,-4);
+        this.translate(-8,1.5,-6);
         this.car.display();
         this.popMatrix();
 
@@ -282,6 +298,19 @@ class MyScene extends CGFscene {
             this.lights[0].enable();
         }
         this.campfire.update(currTime);
+
+        if(this.carLights)
+        {
+            this.car.turnOnLights();
+            this.lights[3].enable();
+            this.lights[4].enable();
+        }
+        else
+        {
+            this.car.turnOffLights();
+            this.lights[3].disable();
+            this.lights[4].disable();
+        }
     }
 
     updateLights() {
@@ -289,5 +318,9 @@ class MyScene extends CGFscene {
         this.lights[1].update();
         this.lights[2].setLinearAttenuation(0.1/this.scaleFactor);
         this.lights[2].update();
+        this.lights[3].setLinearAttenuation(0.1/this.scaleFactor);
+        this.lights[3].update();
+        this.lights[4].setLinearAttenuation(0.1/this.scaleFactor);
+        this.lights[4].update();
     }
 }

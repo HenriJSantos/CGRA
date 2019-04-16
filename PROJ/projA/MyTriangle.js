@@ -23,6 +23,16 @@ class MyTriangle extends CGFobject {
            0.5, -0.5, -0.5,	//3
            -0.5, 0.5, -0.5,	//4
            -0.5, -0.5, -0.5,	//5
+
+            0.5, -0.5, 0.5,	//6
+            -0.5, 0.5, 0.5,	//7
+            -0.5, -0.5, 0.5,	//8
+            -0.5, -0.5, 0.5,	//9
+
+            0.5, -0.5, -0.5,	//10
+            -0.5, 0.5, -0.5,	//11
+            -0.5, -0.5, -0.5,	//12
+            -0.5, -0.5, -0.5,	//13
 		];
 
 		this.normals = [
@@ -33,6 +43,16 @@ class MyTriangle extends CGFobject {
             0, 0, -1,
             0, 0, -1,
             0, 0, -1,
+
+            1, 1, 0,
+            1, 1, 0,
+            -1, 0, 0,
+            0, -1, 0,
+
+            1, 1, 0,
+            1, 1, 0,
+            -1, 0, 0,
+            0, -1, 0,
 		];
 
         this.texCoords = [
@@ -43,6 +63,16 @@ class MyTriangle extends CGFobject {
             1, 1,   //3
             0, 1, 	//4
             0.5, 0.5, 	//5
+
+            0, 1,   //6
+            0, 0, 	//7
+            0.5, 0.5, 	//8
+            0.5, 0.5, 	//9
+
+            1, 1,   //10
+            1, 0, 	//11
+            0.5, 0.5, 	//12
+            0.5, 0.5, 	//13
         ];
 
 		//Counter-clockwise reference of vertices
@@ -50,8 +80,8 @@ class MyTriangle extends CGFobject {
 			0, 1, 2,
             5, 4, 3,
 
-			3,4,1,
-			0,3,1,
+			10,11,7,
+			6,10,7,
 
 			5,3,0,
 			5,0,2,
@@ -61,6 +91,7 @@ class MyTriangle extends CGFobject {
 		];
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
+        //this.enableNormalViz();
 	}
 
 	display()

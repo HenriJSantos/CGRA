@@ -4,13 +4,18 @@
  * @param scene - Reference to MyScene object
  */
 class MyLog extends CGFobject {
-	constructor(scene, logTexture, trunkTexture, thickness, diameter) {
+	constructor(scene, logTexture, trunkTexture, thickness, diameter, nSides) {
 		super(scene);
 		this.logTexture = logTexture;
 		this.trunkTexture = trunkTexture;
 
-		this.log = new MyCircle(scene, 10);
-		this.trunk = new MyCylinder(scene, 10);
+		let number = 10;
+		if(nSides != undefined)
+		{
+			number = nSides
+		}
+		this.log = new MyCircle(scene, number);
+		this.trunk = new MyCylinder(scene, number);
 
 		this.baseMaterial = new CGFappearance(this.scene);
         this.baseMaterial.setAmbient(0.4, 0.4, 0.4, 1.0);

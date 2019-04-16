@@ -9,7 +9,7 @@ function invertTexCoords(texCoords) {
  * @param scene - Reference to MyScene object
  */
 class MySlab extends CGFobject {
-    constructor(scene, width, height, thickness, material, borderMaterial, textCoords) {
+    constructor(scene, width, height, thickness, material, borderMaterial, textCoords, invert) {
         super(scene);
         this.quadPol = new MyQuad(scene);
 
@@ -33,7 +33,10 @@ class MySlab extends CGFobject {
             this.borderMaterial = borderMaterial;
         }
 
-        textCoords = invertTexCoords(this.quadPol.getTexCoords());
+        if(invert != undefined)
+        {
+            textCoords = invertTexCoords(this.quadPol.getTexCoords());
+        }
         this.quadPolBack = new MyQuad(scene, textCoords);
 
     }
@@ -63,14 +66,15 @@ class MySlab extends CGFobject {
         //RIGHT
         this.scene.pushMatrix();
         this.scene.translate(0.5,0,0);
+        this.scene.rotate(-Math.PI/2, 1,0,0);
         this.scene.rotate(Math.PI/2, 0,1,0);
-
         this.quadPol.display();
         this.scene.popMatrix();
 
         //LEFT
         this.scene.pushMatrix();
         this.scene.translate(-0.5,0,0);
+        this.scene.rotate(-Math.PI/2, 1,0,0);
         this.scene.rotate(-Math.PI/2, 0,1,0);
         this.quadPol.display();
         this.scene.popMatrix();
@@ -85,11 +89,17 @@ class MySlab extends CGFobject {
         //BOTTOM
         this.scene.pushMatrix();
         this.scene.translate(0,-0.5,0);
+        this.scene.rotate(Math.PI, 0,1,0);
         this.scene.rotate(Math.PI/2, 1,0,0);
         this.quadPol.display();
         this.scene.popMatrix();
 
         this.scene.popMatrix();
+    }
+
+    changeMaterial(material)
+    {
+        this.material = material;
     }
 }
 

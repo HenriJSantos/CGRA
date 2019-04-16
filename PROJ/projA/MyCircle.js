@@ -21,12 +21,12 @@ class MyCircle extends CGFobject {
         for(let i = 0, ang = 0; i <= this.divisions; i++, ang += alphaAng) {
             this.vertices.push(Math.cos(ang), 0, -Math.sin(ang));
             this.normals.push(0, 1, 0);
-            this.texCoords.push(0.5+0.5*Math.cos(ang), 0.5+0.5*Math.sin(ang));
+            this.texCoords.push(0.5 + 0.5*Math.cos(ang), 0.5 + 0.5*Math.sin(ang));
             if(i != this.divisions)
             	this.indices.push(i, i+1, this.divisions+1);
         }
 
-        this.vertices.push(0.5, 0, 0.5);
+        this.vertices.push(0, 0, 0);
         this.normals.push(0, 1, 0);
         this.texCoords.push(0.5, 0.5);
 

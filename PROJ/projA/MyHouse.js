@@ -51,7 +51,7 @@ class MyHouse extends CGFobject {
         this.rightSideWall = new MySlab(scene, this.sideWalls_width, this.walls_height, this.walls_thick, woodMaterial, undefined, sideWallTextCoords);
         this.leftSideWalls = new MySlab(scene, this.leftWallWidht, this.walls_height, this.walls_thick, woodMaterial, undefined, leftWallsTextCoords);
         this.leftBorders = new MySlab(scene, this.leftWindowWidth, this.leftBordersHeight, this.walls_thick, woodMaterial, undefined, leftBordersTextCoords);
-        this.leftWindow = new MySlab(scene, this.leftWindowWidth/2, this.leftWindowHeight, this.leftWindowThick, woodWindowMat, woodWindowBorderMat);
+        this.leftWindow = new MySlab(scene, this.leftWindowWidth/2, this.leftWindowHeight, this.leftWindowThick, woodWindowMat, woodWindowBorderMat, undefined, true);
 
         this.floor = new MySlab(scene, this.backwall_width, this.sideWalls_width + this.walls_thick*2, 0.001);
         this.ceiling = new MyQuad(scene, ceilingTextCoords);

@@ -12,7 +12,7 @@ class MyDoor extends CGFobject {
 
         this.knobMaterial = new MyMaterial(scene, knobTexture);
 
-        this.door = new MySlab(scene, doorWidth, this.doorHeight, 0.3, this.doorMaterial);
+        this.door = new MySlab(scene, doorWidth, this.doorHeight, 0.3, this.doorMaterial, undefined, undefined, true);
         this.doorKnob = new MySlab(scene, 0.4, 0.1, 0.1, this.knobMaterial);
         this.doorKnob1 = new MySlab(scene, 0.1, 0.05, 0.1), this.knobMaterial;
     }
