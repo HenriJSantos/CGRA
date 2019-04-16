@@ -25,9 +25,9 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.cubeMap = new MyCubeMap(this);
         let grassTexture = new CGFtexture(this, 'textures/grassTexture.jpg');
-        this.grass = new MyFloor(this, 40, 40, grassTexture);
+        this.grass = new MyFloor(this, 80, 80, grassTexture);
         let sandTexture = new CGFtexture(this, 'textures/sandTexture.jpg');
-        this.sand = new MyFloor(this, 40, 6, sandTexture);
+        this.sand = new MyFloor(this, 80, 16, sandTexture);
         let treeTopTexture = new CGFtexture(this, 'textures/treeTopTexture.jpg');
         let trunkTexture = new CGFtexture(this, 'textures/trunkTexture.jpg');
         this.tree = new MyTree(this, 2, 0.5, 3, 3, trunkTexture, treeTopTexture);
@@ -73,7 +73,7 @@ class MyScene extends CGFscene {
         this.car = new MyCar(this, 4, 10, 4);
 
         let WaterMat = new MyMaterial(this, 'textures/waterTexture.png');
-        this.ocean = new MyWater(this, 40, 40, WaterMat);
+        this.ocean = new MyWater(this, 80, 48, WaterMat);
 
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
@@ -156,7 +156,7 @@ class MyScene extends CGFscene {
         (this.night? this.nightCubeMapMaterial.apply() : this.dayCubeMapMaterial.apply());
         this.cubeMap.display();
         this.popMatrix();
-/*
+
         // MyFloor
         this.grass.display();
 
@@ -288,9 +288,11 @@ class MyScene extends CGFscene {
         this.translate(-8,1.5,-6);
         this.car.display();
         this.popMatrix();
-*/
 
-    this.ocean.display();
+        this.pushMatrix();
+        this.translate(0,0,80);
+        this.ocean.display();
+        this.popMatrix();
     }
 
     update(currTime) {
