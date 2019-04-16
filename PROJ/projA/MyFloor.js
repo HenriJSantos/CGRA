@@ -30,14 +30,8 @@ class MyFloor extends CGFobject {
 		this.baseMaterial.setTexture(this.groundTexture);
 	    this.baseMaterial.apply();
 
-        this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/2, 1,0,0);
-        this.scene.scale(this.width, this.length, 1);
-        this.quad.display();
-        this.scene.popMatrix();
-
-	    /*for(let i = -this.width/2; i <= this.width/2; i++) {
-	        for (let j = -this.length/2; j <= this.length/2; j++) {
+	    for(let i = -this.width/4; i < this.width/4; i++) {
+	        for (let j = -this.length/4; j < this.length/4; j++) {
 					this.scene.pushMatrix();
 					this.scene.translate(2*i,0,2*j);
 					this.scene.scale(2,1,2);
@@ -46,6 +40,5 @@ class MyFloor extends CGFobject {
 					this.scene.popMatrix();
 	        }
 	    }
-	    */
 	}
 }

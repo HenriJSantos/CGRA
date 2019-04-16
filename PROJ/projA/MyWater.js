@@ -23,8 +23,8 @@ class MyWater extends CGFobject {
     display() {
         this.material.apply();
         this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/2, 1,0,0);
-        this.scene.scale(this.width, this.length, 1);
+        this.scene.scale(this.width, 1, this.length);
+        this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.quad.display();
         this.scene.popMatrix();
     }

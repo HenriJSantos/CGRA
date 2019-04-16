@@ -24,10 +24,21 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.cubeMap = new MyCubeMap(this);
+
         let grassTexture = new CGFtexture(this, 'textures/grassTexture.jpg');
         this.grass = new MyFloor(this, 80, 80, grassTexture);
+
         let sandTexture = new CGFtexture(this, 'textures/sandTexture.jpg');
         this.sand = new MyFloor(this, 80, 16, sandTexture);
+
+        let waterMaterialProperties = [
+            0.5, 0.5, 0.5, 1.0,
+            0.5, 0.5, 0.5, 1.0,
+            0.7, 0.7, 0.7, 1.0
+        ];
+        let WaterMat = new MyMaterial(this, 'textures/waterTexture.png', ["REPEAT", "REPEAT"], 10, waterMaterialProperties);
+        this.ocean = new MyWater(this, 80, 48, WaterMat);
+
         let treeTopTexture = new CGFtexture(this, 'textures/treeTopTexture.jpg');
         let trunkTexture = new CGFtexture(this, 'textures/trunkTexture.jpg');
         this.tree = new MyTree(this, 2, 0.5, 3, 3, trunkTexture, treeTopTexture);
@@ -35,12 +46,16 @@ class MyScene extends CGFscene {
         this.treeRowPatch2 = new MyTreeRowPatch(this,3,2,0.5,3,3,trunkTexture,treeTopTexture);
         this.treeGroupPatch1 = new MyTreeGroupPatch(this,3,2,0.5,3,3,trunkTexture,treeTopTexture);
         this.treeGroupPatch2 = new MyTreeGroupPatch(this,2,2,0.5,3,3,trunkTexture,treeTopTexture);
+
         this.house = new MyHouse(this);
+
         this.hill1 = new MyVoxelHill(this, 4, grassTexture);
         this.hill2 = new MyVoxelHill(this, 6, grassTexture);
         this.hill3 = new MyVoxelHill(this, 8, grassTexture);
+
         let logTexture = new CGFtexture(this, 'textures/logTexture.jpg');
         this.campfire = new MyCampfire(this, logTexture, trunkTexture, false);
+
         let cubeMapMaterialProperties = [
             5.0, 5.0, 5.0, 1.0,
             0.0, 0.0, 0.0, 0.0,
@@ -48,6 +63,7 @@ class MyScene extends CGFscene {
         ];
         this.dayCubeMapMaterial = new MyMaterial(this, 'textures/DayCubeMap.png', ["CLAMP_TO_EDGE", "CLAMP_TO_EDGE"], 10, cubeMapMaterialProperties);
         this.nightCubeMapMaterial = new MyMaterial(this, 'textures/NightCubeMap.png', ["CLAMP_TO_EDGE", "CLAMP_TO_EDGE"], 10, cubeMapMaterialProperties);
+        this.cubeMapMaterial = this.dayCubeMapMaterial;
         
         let beachballMaterialProperties = [
             0.5, 0.5, 0.5, 1.0,
@@ -63,21 +79,17 @@ class MyScene extends CGFscene {
 
         let umbrella1Material1 = new MyMaterial(this, 'textures/umbrella1.jpg', ["REPEAT", "REPEAT"], 10, beachballMaterialProperties);
         this.umbrella1 = new MyUmbrella(this, umbrella1Material1);
-
         let umbrella1Material2 = new MyMaterial(this, 'textures/umbrella2.jpg', ["REPEAT", "REPEAT"], 10, beachballMaterialProperties);
         this.umbrella2 = new MyUmbrella(this, umbrella1Material2);
-
         let umbrella1Material3 = new MyMaterial(this, 'textures/umbrella3.jpg', ["REPEAT", "REPEAT"], 10, beachballMaterialProperties);
         this.umbrella3 = new MyUmbrella(this, umbrella1Material3);
 
         this.car = new MyCar(this, 4, 10, 4);
 
-        let WaterMat = new MyMaterial(this, 'textures/waterTexture.png');
-        this.ocean = new MyWater(this, 80, 48, WaterMat);
-
         //Objects connected to MyInterface
         this.scaleFactor = 1.0;
-        this.night = false;
+        this.timesOfDay = {'Day': 0, 'Night': 1};
+        this.day = this.timesOfDay.Day;
         this.campfireLit = false;
         this.carLights = false;
     }
@@ -93,16 +105,14 @@ class MyScene extends CGFscene {
         this.lights[1].setDiffuse(0.05, 0.15, 0.2, 1.0);
         this.lights[1].setSpecular(0.05, 0.1, 0.15, 1.0);
         this.lights[1].setAmbient(0.0,0.05,0.1,1.0);
-        this.lights[1].enable();
         this.lights[1].update();
 
 
-        this.lights[2].setPosition(0, 0.5, 8, 1);
-        this.lights[2].setDiffuse(1.0, 0.2, 0.0, 1.0);
+        this.lights[2].setPosition(0, 0.7, 8, 1);
+        this.lights[2].setDiffuse(1.5, 0.4, 0.0, 1.0);
         this.lights[2].setSpecular(0.0, 0.0, 0.0, 1.0);
-        this.lights[2].setConstantAttenuation(0.1);
-        this.lights[2].setLinearAttenuation(0.05/this.scaleFactor);
-        this.lights[2].enable();
+        this.lights[2].setConstantAttenuation(0.5);
+        this.lights[2].setLinearAttenuation(0.03/this.scaleFactor);
         this.lights[2].update();
 
         this.lights[3].setPosition(-9,2.5,0, 1);
@@ -110,7 +120,8 @@ class MyScene extends CGFscene {
         this.lights[3].setSpecular(0.7, .8, 0.4, .5);
         this.lights[3].setConstantAttenuation(0.1);
         this.lights[3].setLinearAttenuation(0.05/this.scaleFactor);
-        this.lights[3].enable();
+        this.lights[3].setSpotDirection(0,0,1);
+        this.lights[3].setSpotCutOff(Math.PI/3);
         this.lights[3].update();
 
         this.lights[4].setPosition(-7,2.5,0, 1);
@@ -118,7 +129,8 @@ class MyScene extends CGFscene {
         this.lights[4].setSpecular(0.7, .8, 0.4, .5);
         this.lights[4].setConstantAttenuation(0.1);
         this.lights[4].setLinearAttenuation(0.05/this.scaleFactor);
-        this.lights[4].enable();
+        this.lights[4].setSpotDirection(0,0,1);
+        this.lights[4].setSpotCutOff(Math.PI/3);
         this.lights[4].update();
     }
         initCameras() {
@@ -147,13 +159,11 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
-        //this.sphere.display();
-
         this.updateLights();
 
         this.pushMatrix();
         this.scale(300, 300, 300);
-        (this.night? this.nightCubeMapMaterial.apply() : this.dayCubeMapMaterial.apply());
+        this.cubeMapMaterial.apply();
         this.cubeMap.display();
         this.popMatrix();
 
@@ -163,6 +173,11 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(0, 0, 48);
         this.sand.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-1, 0, 79);
+        this.ocean.display();
         this.popMatrix();
 
         // MyCampfire
@@ -288,36 +303,10 @@ class MyScene extends CGFscene {
         this.translate(-8,1.5,-6);
         this.car.display();
         this.popMatrix();
-
-        this.pushMatrix();
-        this.translate(0,0,80);
-        this.ocean.display();
-        this.popMatrix();
     }
 
     update(currTime) {
-        if(this.night) {
-            this.lights[0].disable();
-            this.lights[1].enable();
-        }
-        else {
-            this.lights[1].disable();
-            this.lights[0].enable();
-        }
         this.campfire.update(currTime);
-
-        if(this.carLights)
-        {
-            this.car.turnOnLights();
-            this.lights[3].enable();
-            this.lights[4].enable();
-        }
-        else
-        {
-            this.car.turnOffLights();
-            this.lights[3].disable();
-            this.lights[4].disable();
-        }
     }
 
     updateLights() {
@@ -330,4 +319,44 @@ class MyScene extends CGFscene {
         this.lights[4].setLinearAttenuation(0.1/this.scaleFactor);
         this.lights[4].update();
     }
+
+    toggleTime() {
+        if(this.day == true) {
+            this.day = false;
+            this.lights[0].disable();
+            this.lights[1].enable();
+            this.cubeMapMaterial = this.nightCubeMapMaterial;
+        } else {
+            this.day = true;
+            this.lights[0].enable();
+            this.lights[1].disable();
+            this.cubeMapMaterial = this.dayCubeMapMaterial;
+        }
+    }
+
+    toggleCampfire() {
+		if(this.campfire.lit) {
+			this.campfire.lit = false;
+			this.lights[2].disable();
+		}
+		else {
+			this.campfire.lit = true;
+			this.lights[2].enable();
+		}
+	}
+
+	toggleCarLights() {
+		if(this.carLights)
+        {
+            this.car.turnOnLights();
+            this.lights[3].enable();
+            this.lights[4].enable();
+        }
+        else
+        {
+            this.car.turnOffLights();
+            this.lights[3].disable();
+            this.lights[4].disable();
+        }
+	}
 }
