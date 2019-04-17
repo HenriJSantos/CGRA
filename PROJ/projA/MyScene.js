@@ -12,9 +12,11 @@ class MyScene extends CGFscene {
         this.initLights();
         this.enableTextures(true);
 
+        /*
         this.waterShader = new CGFshader(this.gl, "water.vert", "water.frag");
         this.waterMap = new CGFtexture(this, "textures/shaderTextures/waterMap.png");
         this.waterTex = new CGFtexture(this, "textures/waterTexture.png");
+        */
 
 
         //Background color
@@ -140,7 +142,7 @@ class MyScene extends CGFscene {
         this.lights[4].update();
     }
         initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 50, 50), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.8, 0.8, 0.8, 1.0);
@@ -181,19 +183,21 @@ class MyScene extends CGFscene {
         this.sand.display();
         this.popMatrix();
 
+        /*
         this.waterTex.bind(1);
         this.waterMap.bind(2);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
         this.waterShader.setUniformsValues({ waterMap: 2 });
         this.waterShader.setUniformsValues({ waterTex: 1 });
-
         this.setActiveShader(this.waterShader);
+        */
+
         this.pushMatrix();
         this.translate(-1, 0, 79);
         this.ocean.display();
         this.popMatrix();
-        this.setActiveShader(this.defaultShader);
+        //this.setActiveShader(this.defaultShader);
 
         // MyCampfire
         this.pushMatrix();
@@ -329,7 +333,8 @@ class MyScene extends CGFscene {
     update(currTime) {
         let secTime = currTime / 100 % 1000;
         this.campfire.update(currTime);
-        this.waterShader.setUniformsValues({ timeStep:  this.TimeFun(secTime)});
+        //this.waterShader.setUniformsValues({ timeStep:  this.TimeFun(secTime)});
+        this.ocean.moveWater(0.02);
     }
 
     updateLights() {

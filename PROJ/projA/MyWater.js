@@ -29,6 +29,17 @@ class MyWater extends CGFobject {
         this.scene.popMatrix();
     }
 
+    moveWater(amount)
+    {
+        let texCoords = this.quad.getTexCoords();
+        texCoords[1] += amount;
+        texCoords[3] += amount;
+        texCoords[5] += amount;
+        texCoords[7] += amount;
+
+        this.quad.updateTexCoords(texCoords);
+    }
+
     update() {
         
     }
