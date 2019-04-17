@@ -56,6 +56,8 @@ class ShaderScene extends CGFscene {
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
 		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
+        this.waterTexture = new CGFtexture(this, "textures/waterTex.jpg");
+        this.waterMap = new CGFtexture(this, "textures/waterMap.jpg");
 
 		// shaders initialization
 
@@ -68,7 +70,8 @@ class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
 			new CGFshader(this.gl, "shaders/texture3anim.vert", "shaders/texture3anim.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepia.frag"),
-			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag")
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
+            new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag")
 		];
 
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
@@ -89,7 +92,8 @@ class ShaderScene extends CGFscene {
 			'Multiple textures in VS and FS': 5,
 			'Animation example': 6,
 			'Sepia': 7,
-			'Convolution': 8
+			'Convolution': 8,
+            'WATER': 9
 		};
 
 		// shader code panels references
@@ -145,6 +149,9 @@ class ShaderScene extends CGFscene {
 
 		// update scale factor
 		this.onScaleFactorChanged(this.scaleFactor);
+		if(this.testShaders[this.selectedExampleShader] == 9)
+		{
+		}
 	}
 
 	// called when a new object is selected
@@ -167,11 +174,31 @@ class ShaderScene extends CGFscene {
 		this.testShaders[this.selectedExampleShader].setUniformsValues({ normScale: this.scaleFactor });
 	}
 
+	SinFunc(t)
+	{
+		return Math.sin(t/2)/2;
+	}
+
+	TimeFunc(t)
+	{
+		let timeFraction = 50;
+		return (t/timeFraction)%1;
+	}
+
 	// called periodically (as per setUpdatePeriod() in init())
 	update(t) {
+		let secTime = t / 100 % 1000;
 		// only shader 6 is using time factor
 		if (this.selectedExampleShader == 6)
 			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 1000 });
+		if(this.selectedExampleShader == 9)
+		{
+			this.testShaders[9].setUniformsValues({ scaleFactor: this.scaleFactor});
+            this.testShaders[9].setUniformsValues({ timeStep: this.TimeFunc(secTime)});
+            this.testShaders[9].setUniformsValues({ waterMap: 2});
+            this.testShaders[9].setUniformsValues({ waterTex: 1});
+            this.testShaders[9].setUniformsValues({ time: secTime});
+		}
 	}
 
 	// main display function
@@ -202,7 +229,9 @@ class ShaderScene extends CGFscene {
 		this.pushMatrix();
 
 		// bind additional texture to texture unit 1
-		this.texture2.bind(1);
+		//this.texture2.bind(1);
+        this.waterTexture.bind(1);
+        this.waterMap.bind(2);
 
 		//Uncomment following lines in case texture must have wrapping mode 'REPEAT'
 		//this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
