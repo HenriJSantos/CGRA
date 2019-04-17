@@ -28,4 +28,8 @@ class MyWater extends CGFobject {
         this.quad.display();
         this.scene.popMatrix();
     }
+
+    update() {
+        
+    }
 }
