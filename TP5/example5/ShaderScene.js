@@ -51,13 +51,11 @@ class ShaderScene extends CGFscene {
 		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.appearance.setShininess(120);
 
-		this.texture = new CGFtexture(this, "textures/texture.jpg");
+		this.texture = new CGFtexture(this, "textures/waterTex.jpg");
 		this.appearance.setTexture(this.texture);
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
-        this.waterTexture = new CGFtexture(this, "textures/waterTex.jpg");
-        this.waterMap = new CGFtexture(this, "textures/waterMap.jpg");
+		this.texture2 = new CGFtexture(this, "textures/waterMap.jpg");
 
 		// shaders initialization
 
@@ -79,6 +77,8 @@ class ShaderScene extends CGFscene {
 		this.testShaders[5].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ timeFactor: 0 });
+		this.testShaders[9].setUniformsValues({ uSampler2: 1 });
+		this.testShaders[9].setUniformsValues({ timeFactor: 0 });
 
 
 		// Shaders interface variables
@@ -192,13 +192,7 @@ class ShaderScene extends CGFscene {
 		if (this.selectedExampleShader == 6)
 			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 1000 });
 		if(this.selectedExampleShader == 9)
-		{
-			this.testShaders[9].setUniformsValues({ scaleFactor: this.scaleFactor});
-            this.testShaders[9].setUniformsValues({ timeStep: this.TimeFunc(secTime)});
-            this.testShaders[9].setUniformsValues({ waterMap: 2});
-            this.testShaders[9].setUniformsValues({ waterTex: 1});
-            this.testShaders[9].setUniformsValues({ time: secTime});
-		}
+			this.testShaders[9].setUniformsValues({ timeFactor: t / 100 % 1000 });
 	}
 
 	// main display function
@@ -229,9 +223,7 @@ class ShaderScene extends CGFscene {
 		this.pushMatrix();
 
 		// bind additional texture to texture unit 1
-		//this.texture2.bind(1);
-        this.waterTexture.bind(1);
-        this.waterMap.bind(2);
+		this.texture2.bind(1);
 
 		//Uncomment following lines in case texture must have wrapping mode 'REPEAT'
 		//this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
