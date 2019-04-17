@@ -12,6 +12,11 @@ class MyScene extends CGFscene {
         this.initLights();
         this.enableTextures(true);
 
+        this.waterShader = new CGFshader(this.gl, "water.vert", "water.frag");
+        this.waterMap = new CGFtexture(this, "textures/shaderTextures/waterMap.png");
+        this.waterTex = new CGFtexture(this, "textures/waterTexture.png");
+
+
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -176,10 +181,19 @@ class MyScene extends CGFscene {
         this.sand.display();
         this.popMatrix();
 
+        this.waterTex.bind(1);
+        this.waterMap.bind(2);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
+        this.waterShader.setUniformsValues({ waterMap: 2 });
+        this.waterShader.setUniformsValues({ waterTex: 1 });
+
+        this.setActiveShader(this.waterShader);
         this.pushMatrix();
         this.translate(-1, 0, 79);
         this.ocean.display();
         this.popMatrix();
+        this.setActiveShader(this.defaultShader);
 
         // MyCampfire
         this.pushMatrix();
@@ -306,8 +320,16 @@ class MyScene extends CGFscene {
         this.popMatrix();
     }
 
+    TimeFun(t)
+    {
+        let timeFraction = 30;
+        return (t/timeFraction) % 1;
+    }
+
     update(currTime) {
+        let secTime = currTime / 100 % 1000;
         this.campfire.update(currTime);
+        this.waterShader.setUniformsValues({ timeStep:  this.TimeFun(secTime)});
     }
 
     updateLights() {
