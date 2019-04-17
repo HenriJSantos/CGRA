@@ -12,7 +12,7 @@ class MyUmbrella extends CGFobject {
         let stickMaterialProperties = [
             0.5, 0.5, 0.5, 1.0,
             0.4, 0.4, 0.4, 1.0,
-            0.7, 0.7, 0.7, 1.0
+            1.0, 1.0, 1.0, 1.0
         ];
         this.stickMaterial = new MyMaterial(this.scene, 'textures/plasticTexture.jpg', ["REPEAT", "REPEAT"], 10, stickMaterialProperties);
 	}

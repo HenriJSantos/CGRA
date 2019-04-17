@@ -20,7 +20,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        this.setUpdatePeriod(10);
+        this.setUpdatePeriod(6);
 
         //Initialize scene objects
         this.cubeMap = new MyCubeMap(this);
@@ -92,12 +92,13 @@ class MyScene extends CGFscene {
         this.day = this.timesOfDay.Day;
         this.campfireLit = false;
         this.carLights = false;
+        this.textures = true;
     }
     initLights() {
-        this.lights[0].setPosition(10, 150, 10, 1);
+        this.lights[0].setPosition(-50, 150, -50, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].setAmbient(0.4,0.4,0.4,1.0);
+        this.lights[0].setSpecular(0.8, 0.8, 0.8, 1.0);
+        this.lights[0].setAmbient(0.2,0.2,0.2,1.0);
         this.lights[0].enable();
         this.lights[0].update();
 
@@ -358,5 +359,12 @@ class MyScene extends CGFscene {
             this.lights[3].disable();
             this.lights[4].disable();
         }
+	}
+
+	toggleTextures() {
+		if(this.textures)
+			this.enableTextures(true);
+		else
+			this.enableTextures(false);
 	}
 }
