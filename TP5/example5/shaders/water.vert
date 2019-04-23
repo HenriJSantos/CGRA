@@ -19,11 +19,8 @@ void main() {
     float filter = 0.1;
 
     vec2 newCoords = aTextureCoord;
-    newCoords.x += mod(timeStep,2.0);
-    newCoords.y += mod(timeStep,2.0);
-
-    if(newCoords.x > 1.0) newCoords.x = 2.0 - newCoords.x;
-	if(newCoords.y > 1.0) newCoords.y = 2.0 - newCoords.y;
+    newCoords.x += mod(timeStep,1.0);
+    newCoords.y += mod(timeStep,1.0);
 
     vec4 tex = texture2D (waterMap, newCoords);
     offset = aVertexNormal*tex.b*filter;
