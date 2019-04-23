@@ -4,11 +4,10 @@ precision highp float;
 
 varying vec2 vTextureCoord;
 
-uniform sampler2D waterTex;
 uniform sampler2D waterMap;
-uniform float timeFactor;
+uniform sampler2D waterTex;
 
 void main() {
-	vec4 color = texture2D(waterTex, vTextureCoord+vec2(timeFactor*.01,timeFactor*.01));
+	vec4 color = texture2D(waterTex, vTextureCoord);
 	gl_FragColor = color;
 }
