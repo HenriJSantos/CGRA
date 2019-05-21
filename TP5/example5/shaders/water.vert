@@ -9,8 +9,7 @@ uniform mat4 uNMatrix;
 uniform float scaleFactor;
 uniform float timeStep;
 
-uniform sampler2D waterMap;
-uniform sampler2D waterTex;
+uniform sampler2D uSampler2;
 
 varying vec2 vTextureCoord;
 
@@ -19,11 +18,11 @@ void main() {
     float filter = 0.1;
 
     vec2 newCoords = aTextureCoord;
-    newCoords.x += mod(timeStep,1.0);
-    newCoords.y += mod(timeStep,1.0);
+    newCoords.x += timeStep;//mod(timeStep,1.0);
+    newCoords.y += timeStep;//mod(timeStep,1.0);
 
-    vec4 tex = texture2D (waterMap, newCoords);
-    offset = aVertexNormal*tex.b*filter;
+    vec4 tex = texture2D (uSampler2, newCoords);
+    offset = 0.5*aVertexNormal*tex.b*filter;
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
 
