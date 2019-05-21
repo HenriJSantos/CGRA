@@ -74,7 +74,7 @@ class ShaderScene extends CGFscene {
             new CGFshader(this.gl, "shaders/texture1.vert", "shaders/grayScale.frag")
 		];
 
-		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
+		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "te"
 		this.testShaders[4].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[5].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ uSampler2: 1 });
