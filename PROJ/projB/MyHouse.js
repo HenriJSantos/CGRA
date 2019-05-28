@@ -21,12 +21,12 @@ class MyHouse extends CGFobject {
         let doorTopWidth = (this.backwall_width - frontWallWidth*2);
         let doorTopHeight = this.walls_height - this.doorHeight;
 
-        let woodMaterial = new MyMaterial(scene, 'textures/HouseTextures/woodWall.jpeg');
-        let roofMaterial = new MyMaterial(scene, 'textures/HouseTextures/roofTexture.jpg');
-        let woodWindowMat = new MyMaterial(scene, 'textures/HouseTextures/woodWindow.png');
-        let woodWindowBorderMat = new MyMaterial(scene, 'textures/HouseTextures/woodWindowBorder.png');
-        let glassWindowMat = new MyMaterial(scene, 'textures/HouseTextures/GlassWindowTexture.png');
-        this.ceilingMat = new MyMaterial(scene, 'textures/HouseTextures/ceilingTexture.png', ['CLAMP_TO_EDGE', 'CLAMP_TO_EDGE']);
+        let woodMaterial = new MyMaterial(scene, 'images/HouseTextures/woodWall.jpeg');
+        let roofMaterial = new MyMaterial(scene, 'images/HouseTextures/roofTexture.jpg');
+        let woodWindowMat = new MyMaterial(scene, 'images/HouseTextures/woodWindow.png');
+        let woodWindowBorderMat = new MyMaterial(scene, 'images/HouseTextures/woodWindowBorder.png');
+        let glassWindowMat = new MyMaterial(scene, 'images/HouseTextures/GlassWindowTexture.png');
+        this.ceilingMat = new MyMaterial(scene, 'images/HouseTextures/ceilingTexture.png', ['CLAMP_TO_EDGE', 'CLAMP_TO_EDGE']);
 
         let doorTopTextCoords = this.getWallTextCoords(doorTopWidth, doorTopHeight);
         let sideWallTextCoords = this.getWallTextCoords(this.sideWalls_width);
@@ -56,19 +56,19 @@ class MyHouse extends CGFobject {
         this.floor = new MySlab(scene, this.backwall_width, this.sideWalls_width + this.walls_thick*2, 0.001);
         this.ceiling = new MyQuad(scene, ceilingTextCoords);
         this.roof = new MyRoof(scene, roofMaterial);
-        this.door = new MyDoor(scene, this.doorWidth, this.doorHeight, 'textures/HouseTextures/doorTexture.png', 'textures/HouseTextures/knobTexture.jpg');
+        this.door = new MyDoor(scene, this.doorWidth, this.doorHeight, 'images/HouseTextures/doorTexture.png', 'textures/HouseTextures/knobTexture.jpg');
 
         this.rugWIdth = this.backwall_width/1.8;
         this.rugLength = this.sideWalls_width/1.8;
         this.rugThick = 0.1;
-        let rugMat = new MyMaterial(scene, 'textures/HouseTextures/rugTexture.png');
+        let rugMat = new MyMaterial(scene, 'images/HouseTextures/rugTexture.png');
 
         this.rug = new MySlab(scene, this.rugWIdth, this.rugLength, this.rugThick, rugMat);
-        let tableMat = new MyMaterial(scene, 'textures/HouseTextures/woodenTable.jpg');
+        let tableMat = new MyMaterial(scene, 'images/HouseTextures/woodenTable.jpg');
         this.tableHeight = 1.5;
         this.table = new MyTable(scene, 3, 2, this.tableHeight, tableMat);
 
-        let chairMat = new MyMaterial(scene, 'textures/HouseTextures/chairTexture.png');
+        let chairMat = new MyMaterial(scene, 'images/HouseTextures/chairTexture.png');
         this.chairHeight = 1;
         this.chair = new MyChair(scene, 1.5,1.5,this.chairHeight ,chairMat);
 
