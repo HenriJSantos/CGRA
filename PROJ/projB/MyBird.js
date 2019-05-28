@@ -27,14 +27,23 @@ class MyBird extends CGFobject {
 		this.tail = new MyTriangle(this.scene, 1, 1, 0.2, this.featherMaterial);
 	
 	    this.wingSpeed = 0.01;
-	    this.heightVariation = 0;
+
+	    this.orientationAngle = 0;
 	    this.speed = 0;
+	    this.x = 0;
+	    this.y = 0;
+	    this.z = 0;
+
+	    this.speedFactor = 1;
+	    this.scaleFactor = 0.5;
 	}
 
 	display() {
 
 		this.scene.pushMatrix();
-		this.scene.translate(0, this.heightVariation, 0);
+		this.scene.translate(this.x, this.y, this.z);
+		this.scene.rotate(this.orientationAngle, 0, 1, 0);
+		this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
 		//Body
 		this.featherMaterial.apply();
@@ -101,6 +110,7 @@ class MyBird extends CGFobject {
 
         this.scene.popMatrix();
 
+		//Wings
         this.featherMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(0.4,0.2,0.9);
@@ -117,8 +127,26 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
 	}
 
+	turn(value) {
+		this.orientationAngle += value;
+	}
+
+	accelerate(value) {
+		this.speed += value;
+	}
+
+	reset() {
+		this.speed = 0;
+		this.orientationAngle = 0;
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
+	}
+
 	update(t) {
-		this.wingAngle = 0.5*Math.sin(this.wingSpeed*t);
-		this.heightVariation = 0.5*Math.sin(this.wingSpeed*t)
+		this.wingAngle = 0.5*Math.sin(0.01*(1+Math.abs(this.speed))*t*this.speedFactor);
+		this.x += this.speed*Math.cos(this.orientationAngle);
+		this.z += -this.speed*Math.sin(this.orientationAngle);
+		this.y = 0.5*Math.sin(this.wingSpeed*t*this.speedFactor);
 	}
 }
