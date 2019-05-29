@@ -21,12 +21,23 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
         this.setUpdatePeriod(50);
 
+        //Variables
+        this.groundHeight = 4;
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.ground = new MyTerrain(this);
-        this.bird = new MyBird(this);
+        this.bird = new MyBird(this, 13);
         this.house = new MyHouse(this);
-        this.branch = new MyTreeBranch(this);
+        this.branch = new MyTreeBranch(this, 10, this.groundHeight, 0);
+
+        this.debugSphere = new MySphere(this, 5, 5);
+        let debugProperties = [
+            1, 0.2, 0.2, 1.0,     //Ambient
+            1, 0.2, 0.2, 1.0,     //Diffuse
+            0.5, 0.05, 0.05, 0.2,     //Specular
+        ];
+        this.debugMaterial = new MyMaterial(this, undefined, undefined, undefined, debugProperties);
 
         //Objects connected to MyInterface
     }
@@ -62,11 +73,27 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             this.bird.reset();
         }
+        if (this.gui.isKeyPressed("KeyP")) {
+            this.bird.verticalMovement(-0.4);
+        }
+        else
+        {
+            this.bird.verticalMovement(0.2);
+        }
+    }
+
+    calculateDistance(position1, position2) {
+        return Math.sqrt(Math.pow(position1[0] - position2[0], 2) + Math.pow(position1[1] - position2[1], 2) + Math.pow(position1[2] - position2[2], 2));
     }
 
     update(t){
         this.bird.update(t);
         this.checkKeys();
+        let catchRadius = 2;
+        if(this.calculateDistance(this.branch.getPosition(), this.bird.getBeakPosition()) <= catchRadius) {
+            this.branch.setPosition(this.bird.getBeakPosition());
+            this.branch.setAngle(this.bird.getOrientation() + Math.PI/2);
+        }
     }
 
     display() {
@@ -93,7 +120,7 @@ class MyScene extends CGFscene {
         this.plane.display();
         this.popMatrix();*/
         this.pushMatrix();
-        this.translate(0,5,0);
+        //this.translate(0,5,0);
         this.bird.display();
         this.popMatrix();
 
@@ -104,10 +131,17 @@ class MyScene extends CGFscene {
         this.house.display();
         this.popMatrix();
 
-        this.pushMatrix();
-        this.translate(10,5,0);
         this.branch.display();
+
+        /* //DEBUG PEAK POSITION
+        this.pushMatrix();
+        let beakPos = this.bird.getBeakPosition();
+        this.translate(beakPos[0],beakPos[1], beakPos[2]);
+        this.scale(0.1, 0.1, 0.1);
+        this.debugMaterial.apply();
+        this.debugSphere.display();
         this.popMatrix();
+        */
 
         this.ground.display();
         // ---- END Primitive drawing section
