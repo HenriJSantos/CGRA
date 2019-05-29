@@ -11,6 +11,7 @@ class MyTreeBranch extends CGFobject {
         this.z = z;
 
         this.orientationAngle = 0;
+        this.catchable = true;
     }
     updateBuffers() {
 
@@ -29,7 +30,6 @@ class MyTreeBranch extends CGFobject {
         this.scene.translate(0,.9,0);
 
         this.scene.pushMatrix();
-        //this.scene.translate(0,.5,.35);
         this.scene.rotate(-Math.PI/6, 1,0,0);
         this.scene.scale(.8,0.3,.8);
         this.log.display();
@@ -55,6 +55,14 @@ class MyTreeBranch extends CGFobject {
 
     setAngle(angle) {
         this.orientationAngle = angle;
+    }
+
+    isCatchable() {
+        return this.catchable;
+    }
+
+    catch() {
+        this.catchable = false;
     }
 }
 

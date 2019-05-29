@@ -30,6 +30,7 @@ class MyScene extends CGFscene {
         this.bird = new MyBird(this, 13);
         this.house = new MyHouse(this);
         this.branch = new MyTreeBranch(this, 10, this.groundHeight, 0);
+        this.nest = new MyNest(this, 17, 5.67, 3.82);
 
         this.debugSphere = new MySphere(this, 5, 5);
         let debugProperties = [
@@ -90,9 +91,22 @@ class MyScene extends CGFscene {
         this.bird.update(t);
         this.checkKeys();
         let catchRadius = 2;
-        if(this.calculateDistance(this.branch.getPosition(), this.bird.getBeakPosition()) <= catchRadius) {
-            this.branch.setPosition(this.bird.getBeakPosition());
+        let beakPosition = this.bird.getBeakPosition();
+        if(this.calculateDistance(this.branch.getPosition(), beakPosition) <= catchRadius && this.branch.isCatchable()) {
+            this.bird.startCarrying();
+            this.branch.setPosition(beakPosition);
             this.branch.setAngle(this.bird.getOrientation() + Math.PI/2);
+        }
+
+        let dropRadius = 3;
+        let nestPosition = this.nest.getPosition();
+        if(this.bird.isCarrying() && this.calculateDistance(beakPosition,nestPosition) <= dropRadius)
+        {
+            let dropPos = nestPosition;
+            dropPos[1] += 2;
+            this.branch.catch();
+            this.branch.setPosition(dropPos);
+            this.bird.stopCarrying();
         }
     }
 
@@ -114,24 +128,23 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        /*this.pushMatrix();
-        this.rotate(-0.5*Math.PI, 1, 0, 0);
-        this.scale(60, 60, 1);
-        this.plane.display();
-        this.popMatrix();*/
         this.pushMatrix();
-        //this.translate(0,5,0);
         this.bird.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(14,5,0);
+        this.translate(13,5,0);
         this.rotate(-Math.PI/2, 0,1,0);
-        this.scale(0.5,0.5,0.5);
+        this.scale(0.8,0.8,0.8);
         this.house.display();
         this.popMatrix();
 
         this.branch.display();
+
+        this.pushMatrix();
+        this.rotate(Math.PI/12, 1,0,1);
+        this.nest.display();
+        this.popMatrix();
 
         /* //DEBUG PEAK POSITION
         this.pushMatrix();

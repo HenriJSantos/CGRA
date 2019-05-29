@@ -20,11 +20,12 @@ class MyHalfSphere extends CGFobject {
 		let sectorStep = 2 * Math.PI / this.sectorCount;
 		let stackStep = Math.PI / this.stackCount;
 
+
 		for(let i = 0, stackAngle = Math.PI/2; i <= this.stackCount/2; i++, stackAngle -= stackStep)
 		{
 			for(let j = 0, sectorAngle = 0; j <= this.sectorCount; j++, sectorAngle += sectorStep)
 			{
-				this.vertices.push(Math.cos(stackAngle) * Math.cos(sectorAngle), Math.sin(stackAngle), Math.cos(stackAngle) * Math.sin(sectorAngle));
+                this.vertices.push(Math.cos(stackAngle) * Math.cos(sectorAngle), Math.sin(stackAngle), Math.cos(stackAngle) * Math.sin(sectorAngle));
 				this.normals.push(Math.cos(stackAngle) * Math.cos(sectorAngle), Math.sin(stackAngle), Math.cos(stackAngle) * Math.sin(sectorAngle));
 				this.texCoords.push(j/this.sectorCount, i/this.stackCount);
 			}

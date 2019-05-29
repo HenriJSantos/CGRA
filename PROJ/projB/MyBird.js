@@ -47,6 +47,8 @@ class MyBird extends CGFobject {
         this.descending = false;
 
         this.beakPosition = [this.x, this.y, this.z];
+
+        this.carrying = false;
 	}
 
 	display() {
@@ -191,5 +193,17 @@ class MyBird extends CGFobject {
 
     getOrientation() {
 	    return this.orientationAngle;
+    }
+
+    startCarrying() {
+	    this.carrying = true;
+    }
+
+    stopCarrying() {
+	    this.carrying = false;
+    }
+
+    isCarrying() {
+	    return this.carrying;
     }
 }
