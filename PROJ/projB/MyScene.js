@@ -22,7 +22,7 @@ class MyScene extends CGFscene {
         this.setUpdatePeriod(50);
 
         //Variables
-        this.groundHeight = 4;
+        this.groundHeight = 3.75;
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -30,7 +30,7 @@ class MyScene extends CGFscene {
         this.bird = new MyBird(this, 13);
         this.house = new MyHouse(this);
         this.branch = new MyTreeBranch(this, 10, this.groundHeight, 0);
-        this.nest = new MyNest(this, 17, 5.67, 3.82);
+        this.nest = new MyNest(this, 17, 6.37, 3.82);
 
         this.debugSphere = new MySphere(this, 5, 5);
         let debugProperties = [
@@ -133,7 +133,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(13,5,0);
+        this.translate(13,5.65,0);
         this.rotate(-Math.PI/2, 0,1,0);
         this.scale(0.8,0.8,0.8);
         this.house.display();
