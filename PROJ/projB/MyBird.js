@@ -173,6 +173,8 @@ class MyBird extends CGFobject {
 		this.x = 0;
 		this.y = this.baseAltitude;
 		this.z = 0;
+		this.verticalTilt = 0;
+		this.currentAltitude = this.baseAltitude;
 	}
 
 	update(t) {
