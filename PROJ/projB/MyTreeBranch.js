@@ -49,7 +49,7 @@ class MyTreeBranch extends CGFobject {
     }
 
     setPosition(position) {
-        this.x = position[0] + 0.5*Math.cos(this.orientationAngle);
+        this.x = position[0]+ 0.5*Math.cos(this.orientationAngle);
         this.y = position[1];
         this.z = position[2] - 0.5*Math.sin(this.orientationAngle);
     }

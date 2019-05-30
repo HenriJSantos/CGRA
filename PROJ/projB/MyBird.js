@@ -9,6 +9,8 @@ class MyBird extends CGFobject {
 	    this.bodyLength = 2.3;
 	    this.headDiameter = 1;
 	    this.headHeight = 0.7;
+	    this.beakLength = 0.5;
+	    this.beakDiameter = 0.3;
 
 	    //Solids
 	    this.lowPolySphere = new MySphere(this.scene, 8, 4);
@@ -34,6 +36,7 @@ class MyBird extends CGFobject {
 
 	    this.orientationAngle = 0;
 	    this.speed = 0;
+	    this.maxSpeed = 3;
 	    this.x = 0;
 	    this.y = baseAltitude;
 	    this.z = 0;
@@ -88,7 +91,7 @@ class MyBird extends CGFobject {
 		this.scene.pushMatrix();
         this.scene.translate(0.85, 0, 0);
         this.scene.rotate(-Math.PI/2, 0, 0, 1);
-        this.scene.scale(0.3, 0.5, 0.3);
+        this.scene.scale(this.beakDiameter, this.beakLength, this.beakDiameter);
         this.beak.display();
         this.scene.popMatrix();
 
@@ -129,13 +132,13 @@ class MyBird extends CGFobject {
         this.featherMaterial.apply();
         this.scene.pushMatrix();
         this.scene.translate(0.4,0.2,0.9);
-        this.scene.rotate(this.wingAngle, 1, 0, 0);
+        this.scene.rotate(this.wingAngle*2, 1, 0, 0);
         this.rightWing.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0.4,0.2,-0.9);
-        this.scene.rotate(-this.wingAngle, 1, 0, 0);
+        this.scene.rotate(-this.wingAngle*2, 1, 0, 0);
         this.leftWing.display();
         this.scene.popMatrix();
 
@@ -147,6 +150,11 @@ class MyBird extends CGFobject {
 	}
 
 	accelerate(value) {
+        if(this.speed >= this.maxSpeed)
+        {
+            this.speed = this.maxSpeed;
+            return;
+        }
 		this.speed += value;
 		if(this.speed < 0)
 			this.speed = 0;
@@ -162,10 +170,11 @@ class MyBird extends CGFobject {
         let endAltitude = this.currentAltitude;
 	    this.descending = (endAltitude < startAltitude);
 
-	    let tiltFactor = 2;
+	    let tiltFactor = .9;
+	    if(this.speed  === 0) tiltFactor = 1.2;
 	    let smoothFactor = 0.6;
 	    let previousTilt = this.verticalTilt;
-	    let harshTilt = (endAltitude - startAltitude)*tiltFactor;
+	    let harshTilt = ((endAltitude - startAltitude)*tiltFactor * (this.maxSpeed - this.speed));
 	    let smoothTilt = harshTilt - (harshTilt - previousTilt)*smoothFactor;
 	    this.verticalTilt = smoothTilt;
     }
@@ -192,10 +201,16 @@ class MyBird extends CGFobject {
 	}
 
 	getBeakPosition() {
-        let xDist = this.bodyLength / 2 + this.headDiameter / 2;
-        let xPos = ((this.x + xDist*Math.cos(this.orientationAngle)))*(this.scaleFactor*2);
-        let yPos = (this.y + this.headHeight/2 + Math.sin(this.verticalTilt)*xDist);
-        let zPos = (this.z + xDist*Math.sin(-this.orientationAngle))*(this.scaleFactor*2);
+	    let xDist = (this.bodyLength/2 + this.headDiameter / 2  + this.beakLength/4);
+        let tiltDist = xDist - this.verticalTilt*0.7;
+        let verticalOffset = 0;
+        if(this.verticalTilt < 0){
+            tiltDist = xDist + this.verticalTilt*0.3;
+            verticalOffset = -0.1;
+        }
+        let xPos = (this.x + tiltDist*Math.cos(this.orientationAngle)*(this.scaleFactor*2));
+        let yPos = (this.y + (this.headHeight/2 + Math.sin(this.verticalTilt)*xDist + verticalOffset)*(this.scaleFactor*2));
+        let zPos = (this.z + tiltDist*Math.sin(-this.orientationAngle)*(this.scaleFactor*2));
         return [xPos, yPos, zPos];
     }
 
