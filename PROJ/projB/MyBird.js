@@ -49,6 +49,7 @@ class MyBird extends CGFobject {
         this.beakPosition = [this.x, this.y, this.z];
 
         this.carrying = false;
+        this.branchNumber;
 	}
 
 	display() {
@@ -197,15 +198,21 @@ class MyBird extends CGFobject {
 	    return this.orientationAngle;
     }
 
-    startCarrying() {
+    startCarrying(branchNumber) {
 	    this.carrying = true;
+	    this.branchNumber = branchNumber;
     }
 
     stopCarrying() {
 	    this.carrying = false;
+	    this.branchNumber = null;
     }
 
     isCarrying() {
 	    return this.carrying;
+    }
+
+    getCarriedBranch() {
+	    return this.branchNumber;
     }
 }

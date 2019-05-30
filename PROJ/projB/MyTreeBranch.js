@@ -1,5 +1,5 @@
 class MyTreeBranch extends CGFobject {
-    constructor(scene, x ,y, z) {
+    constructor(scene, x ,y, z, angle) {
         super(scene);
 
         let trunkTexture = new CGFtexture(scene, 'images/trunkTexture.jpg');
@@ -10,7 +10,8 @@ class MyTreeBranch extends CGFobject {
         this.y = y;
         this.z = z;
 
-        this.orientationAngle = 0;
+        if(angle !== undefined) this.orientationAngle = angle;
+        else this.orientationAngle = 0;
         this.catchable = true;
     }
     updateBuffers() {

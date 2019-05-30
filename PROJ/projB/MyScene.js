@@ -29,8 +29,9 @@ class MyScene extends CGFscene {
         this.ground = new MyTerrain(this);
         this.bird = new MyBird(this, 13);
         this.house = new MyHouse(this);
-        this.branch = new MyTreeBranch(this, 10, this.groundHeight, 0);
         this.nest = new MyNest(this, 17, 6.37, 3.82);
+
+        this.createBranches(4);
 
         this.debugSphere = new MySphere(this, 5, 5);
         let debugProperties = [
@@ -42,6 +43,31 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
     }
+
+    createBranches(numberOfBranches) {
+        let zone1 = [9, 12, -3, 11];  //x1, x2, z1, z2
+        let zone2 = [-12, -2, 10, 15];
+        let zone3 = [-6, 2, -16, -4];
+        let zone4 = [-14, -6, -4, 4];
+
+        let zones = [zone1, zone2, zone3, zone4];
+        this.branchArray = Array(numberOfBranches);
+        console.log(zones[0][0]);
+        for(let i = 0; i < numberOfBranches; i++)
+        {
+            let zone = Math.floor(Math.random() * 4);
+            let xRange = Math.abs(Math.abs(zones[zone][1]) - Math.abs(zones[zone][0])) + 1;
+            let zRange = Math.abs(Math.abs(zones[zone][3]) - Math.abs(zones[zone][2])) + 1;
+            let xStart = zones[zone][0];
+            let zStart = zones[zone][2];
+
+            let randomX =  Math.floor(Math.random() * xRange) + xStart;
+            let randomZ =  Math.floor(Math.random() * zRange) + zStart;
+            let randomAngle = Math.random() * Math.PI;
+            this.branchArray[i] = new MyTreeBranch(this, randomX, this.groundHeight, randomZ,  randomAngle);
+        }
+    }
+
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -90,22 +116,38 @@ class MyScene extends CGFscene {
     update(t){
         this.bird.update(t);
         this.checkKeys();
+
         let catchRadius = 2;
         let beakPosition = this.bird.getBeakPosition();
-        if(this.calculateDistance(this.branch.getPosition(), beakPosition) <= catchRadius && this.branch.isCatchable()) {
-            this.bird.startCarrying();
-            this.branch.setPosition(beakPosition);
-            this.branch.setAngle(this.bird.getOrientation() + Math.PI/2);
+
+        if(this.bird.isCarrying())
+        {
+            let branchNumber = this.bird.getCarriedBranch();
+            this.branchArray[branchNumber].setPosition(beakPosition);
+            this.branchArray[branchNumber].setAngle(this.bird.getOrientation() + Math.PI/2);
+        }
+        else
+        {
+            for(let i = 0; i < this.branchArray.length; i++)
+            {
+                let branch = this.branchArray[i];
+                if(!this.bird.isCarrying() && branch.isCatchable() && this.calculateDistance(branch.getPosition(), beakPosition) <= catchRadius) {
+                    this.bird.startCarrying(i);
+                    branch.setPosition(beakPosition);
+                    branch.setAngle(this.bird.getOrientation() + Math.PI/2);
+                    this.branch.catch();
+                }
+            }
         }
 
         let dropRadius = 3;
         let nestPosition = this.nest.getPosition();
         if(this.bird.isCarrying() && this.calculateDistance(beakPosition,nestPosition) <= dropRadius)
         {
+            let branchNumber = this.bird.getCarriedBranch();
             let dropPos = nestPosition;
             dropPos[1] += 2;
-            this.branch.catch();
-            this.branch.setPosition(dropPos);
+            this.branchArray[branchNumber].setPosition(dropPos);
             this.bird.stopCarrying();
         }
     }
@@ -139,7 +181,8 @@ class MyScene extends CGFscene {
         this.house.display();
         this.popMatrix();
 
-        this.branch.display();
+        for(let i = 0; i < this.branchArray.length; i++)
+            this.branchArray[i].display();
 
         this.pushMatrix();
         this.rotate(Math.PI/12, 1,0,1);
