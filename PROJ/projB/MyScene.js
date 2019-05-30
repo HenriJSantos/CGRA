@@ -30,6 +30,7 @@ class MyScene extends CGFscene {
         this.bird = new MyBird(this, 13);
         this.house = new MyHouse(this);
         this.nest = new MyNest(this, 17, 6.37, 3.82);
+        this.lightning = new MyLightning(this);
 
         this.createBranches(4);
 
@@ -165,9 +166,6 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
-        // Draw axis
-        this.axis.display();
-
         //Apply default appearance
         this.setDefaultAppearance();
 
@@ -191,6 +189,11 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.rotate(Math.PI/12, 1,0,1);
         this.nest.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0, 10, 0);
+        this.lightning.display();
         this.popMatrix();
 
         /* //DEBUG PEAK POSITION
