@@ -88,10 +88,10 @@ class MyScene extends CGFscene {
 
     checkKeys() {
         if (this.gui.isKeyPressed("KeyW")) {
-            this.bird.accelerate(0.1);
+            this.bird.accelerate(0.05);
         }
         if (this.gui.isKeyPressed("KeyS")) {
-            this.bird.accelerate(-0.1);
+            this.bird.accelerate(-0.05);
         }
         if (this.gui.isKeyPressed("KeyA")) {
             this.bird.turn(0.1);

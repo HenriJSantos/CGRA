@@ -14,7 +14,7 @@ class MyBird extends CGFobject {
 
 	    //Solids
 	    this.lowPolySphere = new MySphere(this.scene, 8, 4);
-	    this.pyramid = new MyPyramid(this.scene, 6);
+	    this.beak = new MyCone(this.scene, 6);
 	    this.eyeTexture = new CGFtexture(this.scene, "images/eyeTexture.jpg");
 	    this.log = new MyLog(this.scene, this.eyeTexture, this.eyeTexture, undefined, undefined, 8);
 	    this.rightWing = new MyRightWing(this.scene);
@@ -28,7 +28,7 @@ class MyBird extends CGFobject {
             0.8, 0.4, 0.5, 1.0,		//Specular
         ];
 		this.cheekMaterial = new MyMaterial(this.scene, undefined, undefined, 20, cheekProperties);
-		this.beakMaterial = new MyMaterial(this.scene, "images/beakTexture.jpg");
+		this.beakMaterial = new MyMaterial(this.scene, "images/beakTexture.jpg", undefined, 20, cheekProperties);
 
 		this.tail = new MyTriangle(this.scene, 1, 1, 0.2, this.featherMaterial);
 	
@@ -91,7 +91,7 @@ class MyBird extends CGFobject {
         this.scene.translate(0.85, 0, 0);
         this.scene.rotate(-Math.PI/2, 0, 0, 1);
         this.scene.scale(this.beakDiameter, this.beakLength, this.beakDiameter);
-        this.pyramid.display();
+        this.beak.display();
         this.scene.popMatrix();
 
         //Cheeks
@@ -150,6 +150,8 @@ class MyBird extends CGFobject {
 
 	accelerate(value) {
 		this.speed += value;
+		if(this.speed < 0)
+			this.speed = 0;
 	}
 
 	verticalMovement(value) {
