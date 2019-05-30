@@ -33,6 +33,8 @@ class MyScene extends CGFscene {
 
         this.createBranches(4);
 
+        this.rightWing = new MyRightWing(this);
+
         this.debugSphere = new MySphere(this, 5, 5);
         let debugProperties = [
             1, 0.2, 0.2, 1.0,     //Ambient
@@ -172,6 +174,8 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
         this.bird.display();
+        /*this.translate(0,10,0);
+        this.rightWing.display();*/
         this.popMatrix();
 
         this.pushMatrix();
