@@ -23,6 +23,7 @@ class MyScene extends CGFscene {
 
         //Variables
         this.groundHeight = 3.75;
+        this.birdCanDescend = true;
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -102,12 +103,14 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             this.bird.reset();
         }
-        if (this.gui.isKeyPressed("KeyP")) {
-            this.bird.verticalMovement(-0.4);
+        if (this.gui.isKeyPressed("KeyP") && this.birdCanDescend) {
+            if(this.bird.getBeakPosition()[1] > this.groundHeight) this.bird.verticalMovement(-0.4);
+            else this.birdCanDescend = false;
         }
         else
         {
             this.bird.verticalMovement(0.2);
+            if(this.bird.getBeakPosition()[1] > this.groundHeight + 6) this.birdCanDescend = true;
         }
     }
 
@@ -174,8 +177,6 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
         this.bird.display();
-        /*this.translate(0,10,0);
-        this.rightWing.display();*/
         this.popMatrix();
 
         this.pushMatrix();

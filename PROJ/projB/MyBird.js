@@ -36,6 +36,7 @@ class MyBird extends CGFobject {
 
 	    this.orientationAngle = 0;
 	    this.speed = 0;
+	    this.maxSpeed = 3;
 	    this.x = 0;
 	    this.y = baseAltitude;
 	    this.z = 0;
@@ -149,6 +150,11 @@ class MyBird extends CGFobject {
 	}
 
 	accelerate(value) {
+        if(this.speed >= this.maxSpeed)
+        {
+            this.speed = this.maxSpeed;
+            return;
+        }
 		this.speed += value;
 		if(this.speed < 0)
 			this.speed = 0;
@@ -164,10 +170,11 @@ class MyBird extends CGFobject {
         let endAltitude = this.currentAltitude;
 	    this.descending = (endAltitude < startAltitude);
 
-	    let tiltFactor = 2;
+	    let tiltFactor = .9;
+	    if(this.speed  === 0) tiltFactor = 1.2;
 	    let smoothFactor = 0.6;
 	    let previousTilt = this.verticalTilt;
-	    let harshTilt = ((endAltitude - startAltitude)*tiltFactor);
+	    let harshTilt = ((endAltitude - startAltitude)*tiltFactor * (this.maxSpeed - this.speed));
 	    let smoothTilt = harshTilt - (harshTilt - previousTilt)*smoothFactor;
 	    this.verticalTilt = smoothTilt;
     }
