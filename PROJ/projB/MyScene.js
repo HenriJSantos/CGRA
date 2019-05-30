@@ -137,7 +137,7 @@ class MyScene extends CGFscene {
                     this.bird.startCarrying(i);
                     branch.setPosition(beakPosition);
                     branch.setAngle(this.bird.getOrientation() + Math.PI/2);
-                    this.branch.catch();
+                    branch.catch();
                 }
             }
         }
@@ -200,8 +200,7 @@ class MyScene extends CGFscene {
         this.scale(0.1, 0.1, 0.1);
         this.debugMaterial.apply();
         this.debugSphere.display();
-        this.popMatrix();
-        */
+        this.popMatrix();*/
 
         this.ground.display();
         // ---- END Primitive drawing section
