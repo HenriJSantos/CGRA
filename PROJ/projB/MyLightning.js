@@ -7,6 +7,13 @@ class MyLightning extends MyLSystem {
 	constructor(scene) {
         super(scene);
         this.axiom = "X"
+        let lightningProperties = [
+            10.0, 10.0, 0.0, 1.0,     //Ambient    
+            0.0, 0.0, 0.0, 1.0,     //Diffuse
+            0.0, 0.0, 0.0, 1.0		//Specular
+        ];
+        this.lightningMaterial = new MyMaterial(this.scene, undefined, undefined, 20, lightningProperties);
+        this.isAnimating = false;
         this.init();
     }
 
@@ -14,6 +21,7 @@ class MyLightning extends MyLSystem {
         // cria o lexico da gramática
         this.initGrammar();
         this.generateLightning();
+        this.audio = new Audio('thunder.mp3');
     }
 
     // cria o lexico da gramática
@@ -30,8 +38,8 @@ class MyLightning extends MyLSystem {
                 {
                     "F": [  "FF" ],
                     "X": [  "F[-X][X]F[-X]+FX", 
-                            "F[X][X]F[-X]+FX",
-                            "F[-X]F[X][-X]-FX"
+                            "F[/X][X]F[\\X]+FX",
+                            "F[^X][X]F[&X]+FX"
                     ]
                 },
                 30,
@@ -40,11 +48,11 @@ class MyLightning extends MyLSystem {
     }
     
     update(t) {
-        if(!this.inAnimation)
+        if(!this.isAnimating)
             return;
         else {
             if(this.depth >= this.axiom.length) {
-                this.inAnimation = false;
+                this.isAnimating = false;
                 this.depth = 0;
             }
             else
@@ -53,9 +61,10 @@ class MyLightning extends MyLSystem {
     }
 
     startAnimation(t) {
-        this.inAnimation = true;
+        this.isAnimating = true;
         this.startTime = t;
         this.depth = 0;
+        this.audio.play();
     }
 
     display() {
@@ -79,6 +88,22 @@ class MyLightning extends MyLSystem {
                     this.scene.rotate(-this.angle, 0, 0, 1);
                     break;
 
+                case "\\":
+                    this.scene.rotate(this.angle, 1, 0, 0);
+                    break;
+
+                case "/":
+                    this.scene.rotate(-this.angle, 1, 0, 0);
+                    break;
+
+                case "^":
+                    this.scene.rotate(this.angle, 0, 1, 0);
+                    break;
+
+                case "&":
+                    this.scene.rotate(-this.angle, 0, 1, 0);
+                    break;
+
                 case "[":
                     // push
                     matrixPush++;
@@ -97,7 +122,11 @@ class MyLightning extends MyLSystem {
 
                     if ( primitive )
                     {
+                        this.lightningMaterial.apply();
+                        this.scene.pushMatrix();
+                        this.scene.scale(0.1, 1, 0.1); 
                         primitive.display();
+                        this.scene.popMatrix();
                         this.scene.translate(0, 1, 0);
                     }
                     break;

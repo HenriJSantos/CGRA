@@ -25,6 +25,7 @@ class MyScene extends CGFscene {
         this.groundHeight = 3.75;
         this.birdCanDescend = true;
         this.generalScaleFactor = 0.5;
+        this.thirdPerson = false;
 
         //Initialize scene objects
         this.ground = new MyTerrain(this);
@@ -165,6 +166,11 @@ class MyScene extends CGFscene {
             dropPos[1] += 2;
             this.branchArray[branchNumber].setPosition(dropPos);
             this.bird.stopCarrying();
+        }
+
+        if(this.thirdPerson) {
+            this.camera.setPosition(vec3.fromValues(this.bird.x-10*Math.sin(Math.PI/2+this.bird.orientationAngle), this.bird.y+8, this.bird.z-10*Math.cos(Math.PI/2+this.bird.orientationAngle)));
+            this.camera.setTarget(vec3.fromValues(this.bird.x,this.bird.y,this.bird.z));
         }
     }
 
