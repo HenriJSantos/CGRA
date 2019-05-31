@@ -134,7 +134,7 @@ class MyScene extends CGFscene {
         this.bird.update(t);
         this.checkKeys(t);
 
-        let catchRadius = 2;
+        let catchRadius = 1;
         let beakPosition = this.bird.getBeakPosition();
 
         if(this.bird.isCarrying())
@@ -157,7 +157,7 @@ class MyScene extends CGFscene {
             }
         }
 
-        let dropRadius = 3;
+        let dropRadius = 2;
         let nestPosition = this.nest.getPosition();
         if(this.bird.isCarrying() && this.calculateDistance(beakPosition,nestPosition) <= dropRadius)
         {
