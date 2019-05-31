@@ -169,8 +169,8 @@ class MyScene extends CGFscene {
         }
 
         if(this.thirdPerson) {
-            this.camera.setPosition(vec3.fromValues(this.bird.x-30*Math.sin(Math.PI/2+this.bird.orientationAngle), this.bird.y+20, this.bird.z-30*Math.cos(Math.PI/2+this.bird.orientationAngle)));
-            this.camera.setTarget(vec3.fromValues(this.bird.x,this.bird.y,this.bird.z));
+            this.camera.setPosition(vec3.fromValues(this.bird.x-30*Math.sin(Math.PI/2+this.bird.orientationAngle), this.bird.currentAltitude+20, this.bird.z-30*Math.cos(Math.PI/2+this.bird.orientationAngle)));
+            this.camera.setTarget(vec3.fromValues(this.bird.x,this.bird.currentAltitude,this.bird.z));
             this.camera.setAngle
         }
     }
