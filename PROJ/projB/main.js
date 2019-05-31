@@ -36,6 +36,9 @@ serialInclude(['../lib/CGF.js',
                'MyCone.js',
                'MyLSystem.js',
                'MyLightning.js',
+                'MyBranch.js',
+                'MyLeaf.js',
+                'MyLSPlant.js',
 
 main=function()
 {

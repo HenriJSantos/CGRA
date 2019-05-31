@@ -26,16 +26,14 @@ class MyScene extends CGFscene {
         this.birdCanDescend = true;
 
         //Initialize scene objects
-        this.axis = new CGFaxis(this);
         this.ground = new MyTerrain(this);
         this.bird = new MyBird(this, 13);
         this.house = new MyHouse(this);
         this.nest = new MyNest(this, 17, 6.37, 3.82);
         this.lightning = new MyLightning(this);
+        this.tree = new MyLSPlant(this);
 
         this.createBranches(4);
-
-        this.rightWing = new MyRightWing(this);
 
         this.debugSphere = new MySphere(this, 5, 5);
         let debugProperties = [
@@ -196,6 +194,8 @@ class MyScene extends CGFscene {
         this.translate(0, 10, 0);
         this.lightning.display();
         this.popMatrix();
+
+        this.tree.display();
 
         /* //DEBUG PEAK POSITION
         this.pushMatrix();
