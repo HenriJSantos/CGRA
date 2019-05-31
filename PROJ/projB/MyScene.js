@@ -24,6 +24,7 @@ class MyScene extends CGFscene {
         //Variables
         this.groundHeight = 3.75;
         this.birdCanDescend = true;
+        this.generalScaleFactor = 0.5;
 
         //Initialize scene objects
         this.ground = new MyTerrain(this);
@@ -31,9 +32,10 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this);
         this.nest = new MyNest(this, 17, 6.37, 3.82);
         this.lightning = new MyLightning(this);
-        this.tree = new MyLSPlant(this);
-        this.branch = new MyBranch(this, 1, 4, 7);
-        this.foliage = new MyFoliage(this, 4);
+        this.tree1 = new MyLSPlant(this);
+        this.tree2 = new MyLSPlant(this);
+        this.tree3 = new MyLSPlant(this);
+        this.tree4 = new MyLSPlant(this);
 
         this.createBranches(4);
 
@@ -179,6 +181,7 @@ class MyScene extends CGFscene {
 
         //Apply default appearance
         this.setDefaultAppearance();
+        this.ground.display();
 
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
@@ -208,9 +211,27 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(0, 5, 0);
-        this.tree.display();
-        //this.foliage.display();
+        this.translate(3, this.groundHeight, -15);
+        this.scale(this.generalScaleFactor,this.generalScaleFactor,this.generalScaleFactor);
+        this.tree1.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-15, this.groundHeight, -2);
+        this.scale(this.generalScaleFactor,this.generalScaleFactor,this.generalScaleFactor);
+        this.tree2.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-5, this.groundHeight, -10);
+        this.scale(this.generalScaleFactor,this.generalScaleFactor,this.generalScaleFactor);
+        this.tree3.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-8, this.groundHeight, 15);
+        this.scale(this.generalScaleFactor,this.generalScaleFactor,this.generalScaleFactor);
+        this.tree4.display();
         this.popMatrix();
 
         /* //DEBUG PEAK POSITION
@@ -222,7 +243,6 @@ class MyScene extends CGFscene {
         this.debugSphere.display();
         this.popMatrix();*/
 
-        this.ground.display();
         // ---- END Primitive drawing section
     }
 }

@@ -6,12 +6,32 @@
 class MyLSPlant extends MyLSystem {
 	constructor(scene) {
         super(scene);
-        this.createTree();
 
         this.sides = 7;
         this.currentDiameter = 1;
         this.currentLength = 3;
+
+
+        this.productions =
+            {
+                "F": ["FF", "F"],  //Trunk
+                "Z": ["[Zl\\ZLL_]", "[Zl-ZLL+lZLL__]"],  //Branch
+                "E": ["[Zl\\ZL_]", "[Zl-ZL+lZLL__]"],  //first Branch
+                "X": ["FF[-X]FE[/X]+X",
+                    "FF[/E][\\X]+X",
+                    "FE[+X]/X",
+                    "F[/X]-FE[\\X]+X\\",
+                    "FFE[\\X]/X",
+                    "FF[+E][/X]\\X",
+                    "F[+X]FE[\\X]-X",
+                    "FFE[+X]\\X",
+                    "FE[/X]-X"]
+            };
+
+
         this.init();
+        this.createTree();
+        this.checkIterations();
     }
 
     init(){
@@ -23,7 +43,7 @@ class MyLSPlant extends MyLSystem {
     initGrammar(){
         this.grammar = {
             "F": new MyTrunk(this.scene),
-            "L": new MyFoliage(this.scene, 6),
+            "L": new MyFoliage(this.scene, 9),
             "Z": new MyBranch(this.scene, this.currentDiameter, this.currentLength, this.sides),
             "X": new MyLeaf(this.scene)
         };
@@ -33,22 +53,23 @@ class MyLSPlant extends MyLSystem {
     {
         this.generate(
             "X",
-            {
-                "F": [  "FF" ],  //Trunk
-                "Z": [  "[Zl\\ZL_]", "[Zl-Z+lZL__]" ],  //Branch
-                "X": [  "F[-X][X]FZ[/X]+X",
-                    "F[/Z][\\X][X]+X",
-                    "FZ[+X]/X",
-                    "F[/X][X]FZ[/X]+X\\",
-                    "FZ[\\X][X]/X",
-                    "F[+Z][/X]\\X",
-                    "F[+X][X]FZ[\\X]-X",
-                    "FZ[+X]\\X",
-                    "FZ[/X]X" ]
-            },
+            this.productions,
             35.0,
             4,
             0.9);
+    }
+
+    checkIterations() {
+	    let newString = "";
+        for (let j=0; j<this.axiom.length; ++j){
+            let axiomProductions=this.productions[this.axiom[j]];
+            if (this.axiom[j] === "E"){
+                newString += axiomProductions[Math.floor(Math.random() * axiomProductions.length)];
+            }
+            else newString += this.axiom[j];
+        }
+
+        this.axiom = newString;
     }
 
     display(){
@@ -101,6 +122,7 @@ class MyLSPlant extends MyLSystem {
                 case "l":
                     this.currentDiameter = this.currentDiameter/2;
                     break;
+
                 case "_":
                     this.currentDiameter = this.currentDiameter*2;
                     break;
@@ -120,7 +142,7 @@ class MyLSPlant extends MyLSystem {
                     {
                         this.scene.pushMatrix();
                         this.scene.translate(0, -this.currentLength/2, 0);
-                        let scale = Math.min(this.currentDiameter, 1);
+                        let scale = Math.min(this.currentDiameter*1.5, 1);
                         this.scene.scale(scale, scale, scale);
                         primitive.display();
                         this.scene.popMatrix();
@@ -128,7 +150,7 @@ class MyLSPlant extends MyLSystem {
                     else if ( primitive )
                     {
                         primitive.display();
-                        this.scene.translate(0, 0.8, 0);
+                        this.scene.translate(0, 1, 0);
                     }
                     break;
             }
