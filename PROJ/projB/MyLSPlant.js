@@ -55,7 +55,7 @@ class MyLSPlant extends MyLSystem {
             "X",
             this.productions,
             35.0,
-            4,
+            3,
             0.9);
     }
 
