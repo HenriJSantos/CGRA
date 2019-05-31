@@ -33,7 +33,7 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this);
         this.nest = new MyNest(this, 17, 6.37, 3.82);
         this.lightning = new MyLightning(this);
-        this.tree1 = new MyLSPlant(this);
+        //this.tree1 = new MyLSPlant(this);
         this.tree2 = new MyLSPlant(this);
         this.tree3 = new MyLSPlant(this);
         this.tree4 = new MyLSPlant(this);
@@ -216,11 +216,13 @@ class MyScene extends CGFscene {
         this.lightning.display();
         this.popMatrix();
 
+        /*
         this.pushMatrix();
         this.translate(3, this.groundHeight, -15);
         this.scale(this.generalScaleFactor,this.generalScaleFactor,this.generalScaleFactor);
         this.tree1.display();
         this.popMatrix();
+        */
 
         this.pushMatrix();
         this.translate(-15, this.groundHeight, -2);
