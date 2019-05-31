@@ -86,7 +86,7 @@ class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
 
-    checkKeys() {
+    checkKeys(t) {
         if (this.gui.isKeyPressed("KeyW")) {
             this.bird.accelerate(0.05);
         }
@@ -101,6 +101,13 @@ class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyR")) {
             this.bird.reset();
+        }
+        if (this.gui.isKeyPressed("KeyL")) {
+            if(!this.lightning.isAnimating) {
+                this.lightning.axiom = "X";
+                this.lightning.iterate();
+                this.lightning.startAnimation(t);
+            }
         }
         if (this.gui.isKeyPressed("KeyP") && this.birdCanDescend) {
             if(this.bird.getBeakPosition()[1] > this.groundHeight) this.bird.verticalMovement(-0.4);
@@ -118,8 +125,9 @@ class MyScene extends CGFscene {
     }
 
     update(t){
+        this.lightning.update(t);
         this.bird.update(t);
-        this.checkKeys();
+        this.checkKeys(t);
 
         let catchRadius = 2;
         let beakPosition = this.bird.getBeakPosition();
@@ -191,7 +199,9 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(0, 10, 0);
+        this.translate(0, 30, 0);
+        this.scale(1,4,1);
+        this.rotate(Math.PI, 0, 0, 1);
         this.lightning.display();
         this.popMatrix();
 
