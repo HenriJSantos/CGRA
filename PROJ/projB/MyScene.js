@@ -32,6 +32,8 @@ class MyScene extends CGFscene {
         this.nest = new MyNest(this, 17, 6.37, 3.82);
         this.lightning = new MyLightning(this);
         this.tree = new MyLSPlant(this);
+        this.branch = new MyBranch(this, 1, 4, 7);
+        this.foliage = new MyFoliage(this, 4);
 
         this.createBranches(4);
 
@@ -205,7 +207,11 @@ class MyScene extends CGFscene {
         this.lightning.display();
         this.popMatrix();
 
+        this.pushMatrix();
+        this.translate(0, 5, 0);
         this.tree.display();
+        //this.foliage.display();
+        this.popMatrix();
 
         /* //DEBUG PEAK POSITION
         this.pushMatrix();

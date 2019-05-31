@@ -133,7 +133,7 @@ class MyHouse extends CGFobject {
 
         //FLOOR
         this.scene.pushMatrix();
-        this.scene.translate(0, -this.walls_height/2,-this.sideWalls_width/2);
+        this.scene.translate(0, -this.walls_height/2 + 0.01,-this.sideWalls_width/2);
         this.scene.rotate(Math.PI/2, 1,0,0);
         this.floor.display();
         this.scene.popMatrix();

@@ -6,20 +6,15 @@
 class MyLeaf extends CGFobject {
 	constructor(scene) {
 	    super(scene);
-	    this.triangle = new MyTriangle(scene);
-	    let materialProperties = [
-	        0.2, 0.5, 0.3,
-	        0.4, 1.0, 0.6,
-	        0.2, 0.5, 0.3
-        ];
-        this.material = new MyMaterial(scene, undefined, undefined, undefined, materialProperties);
+        let material = new MyMaterial(scene, "images/leaf.jpg");
+        this.quad = new MySlab(scene, 1,1,0.01, material);
 	}
 
 	display() {
-	   this.material.apply();
 	   this.scene.pushMatrix();
-	   this.scene.scale(2,2,2);
-	   this.triangle.display();
+	   this.scene.scale(1,1.5,1);
+	   this.scene.rotate(Math.PI/4, 0,0,1);
+	   this.quad.display();
 	   this.scene.popMatrix();
 	}
 }

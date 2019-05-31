@@ -30,7 +30,7 @@ class MyPyramid extends CGFobject {
             this.vertices.push(ca, 0, -sa);
             this.vertices.push(caa, 0, -saa);
 
-            // triangle normal computed by cross product of two edges
+            // quad normal computed by cross product of two edges
             var normal= [
                 saa-sa,
                 ca*saa-sa*caa,
@@ -47,7 +47,7 @@ class MyPyramid extends CGFobject {
             normal[1]/=nsize;
             normal[2]/=nsize;
 
-            // push normal once for each vertex of this triangle
+            // push normal once for each vertex of this quad
             this.normals.push(...normal);
             this.normals.push(...normal);
             this.normals.push(...normal);
