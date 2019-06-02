@@ -191,8 +191,8 @@ class MyBird extends CGFobject {
 	update(t) {
 		let newAngle = 0.01*(1+Math.abs(this.speed))*t*this.speedFactor;
         if(! this.descending) this.wingAngle = 0.5*Math.sin(newAngle);
-		this.x += this.speed*Math.cos(this.orientationAngle);
-		this.z += -this.speed*Math.sin(this.orientationAngle);
+		this.x += this.speedFactor*this.speed*Math.cos(this.orientationAngle);
+		this.z += -this.speedFactor*this.speed*Math.sin(this.orientationAngle);
 		this.y = this.currentAltitude;
 		if(! this.descending) this.y += 0.5*Math.sin(this.wingSpeed*t);
         if(! this.descending) this.leftWing.update(newAngle);
