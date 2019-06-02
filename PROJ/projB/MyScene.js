@@ -170,7 +170,7 @@ class MyScene extends CGFscene {
             }
         }
 
-        let dropRadius = 3;
+        let dropRadius = 2;
         let nestPosition = this.nest.getPosition();
         if(this.bird.isCarrying() && this.calculateDistance(beakPosition,nestPosition) <= dropRadius)
         {
