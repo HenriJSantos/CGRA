@@ -38,6 +38,14 @@ class MyScene extends CGFscene {
         this.tree3 = new MyLSPlant(this);
         this.tree4 = new MyLSPlant(this);
 
+        let cubeMapMaterialProperties = [
+            5.0, 5.0, 5.0, 1.0,
+            0.0, 0.0, 0.0, 0.0,
+            0.0, 0.0, 0.0, 0.0
+        ];
+        this.cubeMapMaterial = new MyMaterial(this, 'images/DayCubeMap.png', ["CLAMP_TO_EDGE", "CLAMP_TO_EDGE"], 10, cubeMapMaterialProperties);
+        this.cubeMap = new MyCubeMap(this);
+
         this.createBranches(4);
 
         this.debugSphere = new MySphere(this, 5, 5);
@@ -134,7 +142,7 @@ class MyScene extends CGFscene {
         this.bird.update(t);
         this.checkKeys(t);
 
-        let catchRadius = 2;
+        let catchRadius = 1;
         let beakPosition = this.bird.getBeakPosition();
 
         if(this.bird.isCarrying())
@@ -190,6 +198,12 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
         this.ground.display();
 
+        this.pushMatrix();
+        this.scale(100, 100, 100);
+        this.cubeMapMaterial.apply();
+        this.cubeMap.display();
+        this.popMatrix();
+
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
         this.bird.display();
@@ -211,7 +225,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(0, 30, 0);
+        this.translate(0, 20, 0);
         this.scale(1,4,1);
         this.rotate(Math.PI, 0, 0, 1);
         this.lightning.display();

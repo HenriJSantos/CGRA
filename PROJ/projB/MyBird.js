@@ -42,7 +42,7 @@ class MyBird extends CGFobject {
 	    this.z = 0;
 
 	    this.speedFactor = 1;
-	    this.scaleFactor = 0.5;
+	    this.scaleFactor = 1;
 
         this.baseAltitude = baseAltitude;
         this.currentAltitude = baseAltitude;
@@ -56,12 +56,11 @@ class MyBird extends CGFobject {
 	}
 
 	display() {
-
 		this.scene.pushMatrix();
 		this.scene.translate(this.x, this.y, this.z);
 		this.scene.rotate(this.orientationAngle, 0, 1, 0);
         this.scene.rotate(this.verticalTilt, 0, 0, 1);
-        this.scene.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+        this.scene.scale(0.5*this.scaleFactor, 0.5*this.scaleFactor, 0.5*this.scaleFactor);
 
 		//Body
 		this.featherMaterial.apply();
@@ -146,7 +145,7 @@ class MyBird extends CGFobject {
 	}
 
 	turn(value) {
-		this.orientationAngle += value;
+		this.orientationAngle += value*this.speedFactor;
 	}
 
 	accelerate(value) {
@@ -155,7 +154,7 @@ class MyBird extends CGFobject {
             this.speed = this.maxSpeed;
             return;
         }
-		this.speed += value;
+		this.speed += value*this.speedFactor;
 		if(this.speed < 0)
 			this.speed = 0;
 	}
@@ -208,9 +207,9 @@ class MyBird extends CGFobject {
             tiltDist = xDist + this.verticalTilt*0.3;
             verticalOffset = -0.1;
         }
-        let xPos = (this.x + tiltDist*Math.cos(this.orientationAngle)*(this.scaleFactor*2));
-        let yPos = (this.y + (this.headHeight/2 + Math.sin(this.verticalTilt)*xDist + verticalOffset)*(this.scaleFactor*2));
-        let zPos = (this.z + tiltDist*Math.sin(-this.orientationAngle)*(this.scaleFactor*2));
+        let xPos = (this.x + tiltDist*Math.cos(this.orientationAngle)*(this.scaleFactor));
+        let yPos = (this.y + (this.headHeight/2 + Math.sin(this.verticalTilt)*xDist + verticalOffset)*(this.scaleFactor));
+        let zPos = (this.z + tiltDist*Math.sin(-this.orientationAngle)*(this.scaleFactor));
         return [xPos, yPos, zPos];
     }
 

@@ -56,7 +56,7 @@ class MyHouse extends CGFobject {
         this.floor = new MySlab(scene, this.backwall_width, this.sideWalls_width + this.walls_thick*2, 0.001);
         this.ceiling = new MyQuad(scene, ceilingTextCoords);
         this.roof = new MyRoof(scene, roofMaterial);
-        this.door = new MyDoor(scene, this.doorWidth, this.doorHeight, 'images/HouseTextures/doorTexture.png', 'textures/HouseTextures/knobTexture.jpg');
+        this.door = new MyDoor(scene, this.doorWidth, this.doorHeight, 'images/HouseTextures/doorTexture.png', 'images/HouseTextures/knobTexture.jpg');
 
         this.rugWIdth = this.backwall_width/1.8;
         this.rugLength = this.sideWalls_width/1.8;

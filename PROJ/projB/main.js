@@ -42,6 +42,7 @@ serialInclude(['../lib/CGF.js',
                 'MySemiCone.js',
                 'MyBranch.js',
                 'MyFoliage.js',
+                'MyCubeMap.js',
 
 main=function()
 {
