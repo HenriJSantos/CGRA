@@ -137,6 +137,11 @@ class MyScene extends CGFscene {
         return Math.sqrt(Math.pow(position1[0] - position2[0], 2) + Math.pow(position1[1] - position2[1], 2) + Math.pow(position1[2] - position2[2], 2));
     }
 
+    resetCamera() {
+        this.camera.setPosition(vec3.fromValues(45, 45, 45));
+        this.camera.setTarget(vec3.fromValues(0,0,0));
+    }
+
     update(t){
         this.lightning.update(t);
         this.bird.update(t);
